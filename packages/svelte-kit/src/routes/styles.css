@@ -18,7 +18,7 @@
 
 body {
 	min-height: 50vh;
-	margin: 0;
+	margin: 10px 10px 0px 0px;;
 	background-attachment: fixed;
 	background-color: var(--color-bg-1);
 	background-size: 100vw 100vh;

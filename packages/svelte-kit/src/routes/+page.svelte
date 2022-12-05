@@ -18,6 +18,8 @@
 	import { GWTabi } from '../lib/ABI/GWTabi';
 	import { USDCabi } from '../lib/ABI/USDCabi';
 
+	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
+
 	const GERSTEWEINCONTRACT = '0xC45d511faC07A484f9875C823eA495fb7079Bd88';
 	const USDCONTRACT = '0xFEca406dA9727A25E71e732F9961F680059eF1F9';
 
@@ -58,6 +60,10 @@
 		return true;
 	}
 
+	async function connectToMumbai() {
+
+	}
+
 	// mint function
 	// swap function
 </script>
@@ -67,11 +73,17 @@
 	<meta name="description" content="GersteWeuinToken dApp" />
 </svelte:head>
 
-<div class="text-column">
-	<h1>GersteWeinToken</h1>
-	<p>1 USDC = 1 Gerstewein Token</p>
-</div>
+
+
+
 <body>
+	<div class="text-column">
+		<h1>GersteWeinToken</h1>
+		<p>1 USDC = 1 Gerstewein Token</p>
+	</div>
+	<div  class="text-column">
+		<GersteWein3DLogo />
+	</div>
 	{#if !$connected}
 		<p>Conectando...</p>
 	{:else}
@@ -94,7 +106,12 @@
 			{/if}
 		{/await}
 	{:else}
-		Conectate a Mumbai Papu
+	<div>
+		<h1> 
+			Conectate a Mumbai Papu
+		</h1>
+		<button>Agregar red Mumbai</button>
+	</div>
 	{/if}
 </body>
 
