@@ -30,7 +30,7 @@ contract GersteWeinToken is ERC20 {
     address public owner;
     address public admin;
 
-    uint256 public price;
+    uint256 public price = 1;
 
     uint256 public blockTime;
 
@@ -69,7 +69,6 @@ contract GersteWeinToken is ERC20 {
     constructor() ERC20("GersteWeinToken", "GWT") {
         owner = msg.sender;
         admin = msg.sender;
-        price = 1;
     }
 
     function decimals() public view virtual override returns (uint8) {
