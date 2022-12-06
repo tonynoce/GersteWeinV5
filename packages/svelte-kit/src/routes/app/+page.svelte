@@ -40,7 +40,7 @@
 	async function getAllowance() {
 		try {
 			let allowanceCheck = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT)
-			allowance.set(Number(ethers.utils.formatEther(allowanceCheck)));
+			allowance.set(ethers.utils.formatEther(allowanceCheck));
 			console.log($allowance)
 				} catch (e) {
 			console.log(e);
