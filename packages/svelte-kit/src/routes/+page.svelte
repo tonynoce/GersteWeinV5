@@ -48,8 +48,13 @@
 		<h1>GersteWeinToken</h1>
 	</div>
 	<GersteWein3DLogo />
+	<div>
+		<h2>
+			Bienvenido!
+		</h2>
+	</div>
 	<div class="text-column">
-		<a href="/app">Enter the app</a>
+		<a href="/app" class="text-column">Entrar a la app</a>
 	</div>
 	
 </body>

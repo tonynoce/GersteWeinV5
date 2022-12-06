@@ -11,7 +11,7 @@
 
 
 	function tick() {
-		rotationY += 0.01;
+		rotationY += 0.007;
 	  animationFrameHandle = requestAnimationFrame(tick);
 	};
 

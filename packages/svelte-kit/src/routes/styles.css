@@ -46,12 +46,14 @@ a:hover {
 }
 
 h1 {
-	font-size: 2rem;
+	font-size: 36pt;
 	text-align: center;
 }
 
 h2 {
-	font-size: 1rem;
+	font-size: 24pt;
+	text-align: center;
+
 }
 
 pre {
