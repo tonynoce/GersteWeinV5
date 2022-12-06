@@ -25,7 +25,7 @@
 			enableZoom={false} 
 			target={{ y: 1 }}
 			autoRotate
-			autoRotateSpeed={7}
+			autoRotateSpeed={3.5}
 			 />
 		</T.PerspectiveCamera>
 
