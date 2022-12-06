@@ -21,6 +21,7 @@
 	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "./stores/stores"
 
 	import { Canvas } from '@threlte/core';
+	import { Scene } from 'three';
 
 
 
@@ -47,8 +48,8 @@
 	<div class="text-column">
 		<h1>GersteWeinToken</h1>
 	</div>
-		<Canvas>     
-			<GersteWein3DLogo />
+		<Canvas>
+				<GersteWein3DLogo />
 		</Canvas>
 	<div>
 		<h2>
