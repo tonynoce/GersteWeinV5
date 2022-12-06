@@ -5,10 +5,21 @@
 	import { degToRad } from 'three/src/math/MathUtils'
 
 	let materialForGWT = new MeshStandardMaterial({color: "white"})
+
+	let rotationY = 0;
+	let animationFrameHandle;
+
+
+	function tick() {
+		rotationY += 0.01;
+	  animationFrameHandle = requestAnimationFrame(tick);
+	};
+
+	tick()
 </script>
 
 	<Canvas>
-		<T.PerspectiveCamera makeDefault position={[10, 10, 10]} fov={24}>
+		<T.PerspectiveCamera makeDefault position={[10, 5, 15]} fov={24}>
 			<OrbitControls 
 			maxPolarAngle={degToRad(80)} 
 			enableZoom={false} 
@@ -23,7 +34,8 @@
         <GLTF url="GersteweinLogo.glb"
 		materials={materialForGWT}
         scale={3.5}
-		position={{y:-1.5}} 
+		position={{y:-1.5}}
+		rotation={{ y: rotationY }} 
         />
 	</Canvas>
 
