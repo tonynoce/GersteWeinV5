@@ -1,7 +1,5 @@
 <script>
 	import Header from '../lib/components/Header.svelte';
-	import { page } from '$app/stores';
-	import Transition from '../lib/components/transition.svelte';
 
 	import './styles.css';
 </script>
@@ -9,9 +7,8 @@
 <div class="app">
 	<Header />
 	<main>
-		<Transition url={$page.url}>
-			<slot />
-		</Transition>
+	<slot />
+
 	</main>
 
 	<footer>

@@ -10,8 +10,6 @@
 		contracts
 	} from 'svelte-ethers-store';
 
-	import { onMount } from 'svelte';
-	import {} from '$app/stores';
 
 	import { ethers } from 'ethers';
 
@@ -20,12 +18,11 @@
 
 	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
 
-	const GERSTEWEINCONTRACT = '0xC45d511faC07A484f9875C823eA495fb7079Bd88';
-	const USDCONTRACT = '0xFEca406dA9727A25E71e732F9961F680059eF1F9';
+	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "./stores/stores"
+	import { allowance } from "./stores/stores"
 
-	onMount(() => {
-		defaultEvmStores.setProvider();
-	});
+	
+
 
 	// instantiate GWT contract
 	let gwtcontract = new ethers.Contract(GERSTEWEINCONTRACT, GWTabi, $signer);
@@ -35,37 +32,7 @@
 	let usdccontract = new ethers.Contract(USDCONTRACT, USDCabi, $signer);
 	defaultEvmStores.attachContract('USDCContract', USDCONTRACT, USDCabi);
 
-	// stores
-	let allowance: number;
-	$: allowance;
 
-	// getAllowance
-	async function getAllowance() {
-		try {
-			allowance = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT);
-			return allowance;
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
-	async function approveAllowance() {
-		let allowanceToApprove = ethers.utils.parseEther('999999');
-		try {
-			$contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowance);
-		} catch (e) {
-			console.log(e);
-			return false;
-		}
-		return true;
-	}
-
-	async function connectToMumbai() {
-
-	}
-
-	// mint function
-	// swap function
 </script>
 
 <svelte:head>
@@ -79,40 +46,12 @@
 <body>
 	<div class="text-column">
 		<h1>GersteWeinToken</h1>
-		<p>1 USDC = 1 Gerstewein Token</p>
 	</div>
-	<div  class="text-column">
-		<GersteWein3DLogo />
+	<GersteWein3DLogo />
+	<div class="text-column">
+		<a href="/app">Enter the app</a>
 	</div>
-	{#if !$connected}
-		<p>Conectando...</p>
-	{:else}
-		<p>Conectado a la cadena con id {$chainId} con la cuenta {$signerAddress}</p>
-	{/if}
-	{#if $chainId === 80001}
-		<p>Conectado a Mumbai</p>
-
-		{#await getAllowance()}
-			<!--{#await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT)}  -->
-			<span>Cargando...</span>
-		{:then value}
-			{#if value == 0}
-				<p />
-				<button
-					on:click={() => {
-						approveAllowance();
-					}}>Aprobar el contrato</button
-				>
-			{/if}
-		{/await}
-	{:else}
-	<div>
-		<h1> 
-			Conectate a Mumbai Papu
-		</h1>
-		<button>Agregar red Mumbai</button>
-	</div>
-	{/if}
+	
 </body>
 
 <style>
