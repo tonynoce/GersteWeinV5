@@ -5,7 +5,7 @@
 	import { degToRad } from 'three/src/math/MathUtils'
 
 	let materialForGWT = new MeshStandardMaterial({color: "white"})
-
+/* 
 	let rotationY = 0;
 	let animationFrameHandle;
 
@@ -15,7 +15,7 @@
 	  animationFrameHandle = requestAnimationFrame(tick);
 	};
 
-	tick()
+	tick() */
 </script>
 
 	<Canvas>
@@ -24,6 +24,8 @@
 			maxPolarAngle={degToRad(80)} 
 			enableZoom={false} 
 			target={{ y: 1 }}
+			autoRotate
+			autoRotateSpeed={7}
 			 />
 		</T.PerspectiveCamera>
 
@@ -35,7 +37,6 @@
 		materials={materialForGWT}
         scale={3.5}
 		position={{y:-1.5}}
-		rotation={{ y: rotationY }} 
         />
 	</Canvas>
 
