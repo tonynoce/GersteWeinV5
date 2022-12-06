@@ -61,6 +61,8 @@
     {#await getAllowance()}
     <span>Cargando...</span>
     {:then value}
+	<h1>Compra - Venta</h1>
+
     {#if $allowance == 0}
     <p />
     <button
@@ -68,12 +70,11 @@
         approveAllowance()
     }}>Aprobar el contrato</button
 				>
-				<button
-				on:click={() => {
-                    addGersteToken()
-				}}>Añadir Gwt</button>
+				
 			{/if}
+
             {/await}
+
             {:else}
             <div>
                 <h1> 
@@ -82,4 +83,8 @@
                 <button on:click={() => { changeNetwork()}}>Agregar red Mumbai</button>
 	</div>
 	{/if}
+	<button
+	on:click={() => {
+		addGersteToken()
+	}}>Añadir Gwt</button>
 </body>
