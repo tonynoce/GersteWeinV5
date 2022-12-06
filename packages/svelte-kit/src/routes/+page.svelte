@@ -19,9 +19,9 @@
 	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
 
 	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "./stores/stores"
-	import { allowance } from "./stores/stores"
 
-	
+	import { Canvas } from '@threlte/core';
+
 
 
 	// instantiate GWT contract
@@ -47,7 +47,9 @@
 	<div class="text-column">
 		<h1>GersteWeinToken</h1>
 	</div>
-	<GersteWein3DLogo />
+		<Canvas>     
+			<GersteWein3DLogo />
+		</Canvas>
 	<div>
 		<h2>
 			Bienvenido!
