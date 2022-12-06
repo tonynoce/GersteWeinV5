@@ -45,8 +45,8 @@
 
 
 <body>
+	<h1>GersteWeinToken</h1>
 	<div class="text-column">
-		<h1>GersteWeinToken</h1>
 	</div>
 		<Canvas>
 				<GersteWein3DLogo />

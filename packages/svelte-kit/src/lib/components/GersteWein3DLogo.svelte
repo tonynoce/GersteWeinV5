@@ -22,7 +22,7 @@
 	tick() */
 
 	useFrame(() => {
-  	rotationY += 0.007;
+  	rotationY -= 0.007;
 	})
 </script>
 

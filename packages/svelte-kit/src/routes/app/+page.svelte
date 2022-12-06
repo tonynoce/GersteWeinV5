@@ -52,6 +52,7 @@
 </script>
 
 <body>
+	
 	<h1>Compra - Venta</h1>
 
 	{#key $signerAddress}
