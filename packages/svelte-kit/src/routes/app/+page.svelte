@@ -52,16 +52,18 @@
 </script>
 
 <body>
+	<h1>Compra - Venta</h1>
 
     {#if !$connected}
     <p>Conectando...</p>
     
 	{/if}
 	{#if $chainId === 80001}
-    {#await getAllowance()}
+    
+	{#await getAllowance()}
     <span>Cargando...</span>
     {:then value}
-	<h1>Compra - Venta</h1>
+
 
     {#if $allowance == 0}
     <p />
