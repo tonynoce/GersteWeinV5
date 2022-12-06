@@ -26,18 +26,23 @@
 	})
 </script>
 
-<T.PerspectiveCamera makeDefault position={[10, 5, 15]} fov={24}>
+<T.PerspectiveCamera makeDefault position={[0, 0, 15]} fov={24}>
 	<OrbitControls 
 	maxPolarAngle={degToRad(80)} 
 	enableZoom={false} 
-	target={{ y: 1 }}
+	target={{ y: 1.25 }}
 
 	 />
 </T.PerspectiveCamera>
 
-<T.DirectionalLight castShadow position={[3, 10, 10]} />
-<T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />
-<T.AmbientLight intensity={0.2} />
+<T.AmbientLight intensity={0.5} />
+
+<T.DirectionalLight position={[3, 10, 10]} intensity={1} />
+<T.DirectionalLight position={[-3, 10, -10]} intensity={0.5} />
+
+<T.DirectionalLight position={[-15, -10, 20]} intensity={0.25} color={"orange"}/>
+<T.DirectionalLight position={[5, -10, 10]} intensity={0.25} color={"blue"}/>
+
 
 <GLTF url="GersteweinLogo.glb"
 	

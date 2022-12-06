@@ -18,7 +18,6 @@
     import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "../stores/stores"
 	import { allowance } from "../stores/stores"
 
-
 	import { changeNetwork, handleChainChanged, handleAccountsChanged, addGersteToken, addUSDCtToken } from "../stores/metamask"
 	import { getWindowEthereum } from "../stores/metamask"
 
@@ -35,8 +34,7 @@
 			console.log(e);
 		}
 	}
-	
-	
+		
 	async function approveAllowance() {
 		let allowanceToApprove = ethers.utils.parseEther('999999');
 		try {
@@ -50,6 +48,7 @@
 	
 	// mint function => checks != 0 => checks allowance first => checks if amount >= balance 
 	// swap function => checks != 0 => checks if amount >= balance
+
 </script>
 
 <body>
