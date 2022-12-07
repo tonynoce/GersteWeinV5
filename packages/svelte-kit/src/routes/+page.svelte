@@ -10,21 +10,19 @@
 		contracts
 	} from 'svelte-ethers-store';
 
-
 	import { ethers } from 'ethers';
 
+	import GersteButton from "$lib/components/GersteButton.svelte"
+
+	
+	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
+	
+	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "./stores/stores"
+	
+	import { Canvas } from '@threlte/core';
+	
 	import { GWTabi } from '../lib/ABI/GWTabi';
 	import { USDCabi } from '../lib/ABI/USDCabi';
-
-	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
-
-	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "./stores/stores"
-
-	import { Canvas } from '@threlte/core';
-	import { Scene } from 'three';
-
-
-
 	// instantiate GWT contract
 	let gwtcontract = new ethers.Contract(GERSTEWEINCONTRACT, GWTabi, $signer);
 	defaultEvmStores.attachContract('GersteWeinContract', GERSTEWEINCONTRACT, GWTabi);
@@ -33,14 +31,17 @@
 	let usdccontract = new ethers.Contract(USDCONTRACT, USDCabi, $signer);
 	defaultEvmStores.attachContract('USDCContract', USDCONTRACT, USDCabi);
 
+	function handleClick() {
+		alert('clicked')
+	}
 
 </script>
 
 <svelte:head>
 	<title>GersteWein Token</title>
 	<meta name="description" content="GersteWeuinToken dApp" />
+	
 </svelte:head>
-
 
 
 
@@ -57,10 +58,13 @@
 		</h2>
 	</div>
 	<div class="text-column">
-		<a href="/app" class="text-column">Entrar a la app</a>
-	</div>
-	
+		<a href="/app"><GersteButton>Entrar a la app</GersteButton></a>
+			<!-- 		<a href="/app" class="text-column">Entrar a la app</a>
+ -->	</div>
 </body>
 
 <style>
+	a{
+		text-align: center;
+	}
 </style>
