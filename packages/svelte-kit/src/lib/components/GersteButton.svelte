@@ -19,7 +19,7 @@
         width:15rem;
         font-family: gersteWeinFont;
         font-size: 18pt;
-        transition: width 2s;
+        transition: width 1.5s;
     }
 
     button:hover{

@@ -23,22 +23,22 @@
 	import GersteButton from "$lib/components/GersteButton.svelte"
 	import NumberInput from '$lib/components/NumberInput.svelte';
 
-
 	import { changeNetwork, handleChainChanged, handleAccountsChanged, addGersteToken, addUSDCtToken } from "../stores/metamask"
 	import { getWindowEthereum } from "../stores/metamask"
-
-	let onboardingOn = false;
 	
-
 	onMount(() => {
 		defaultEvmStores.setProvider();
 	});
-
+	
+	let allowanceCheck:any;
 	let numberCito:number = 0;
+	
+	let isInstalled:boolean;
+	let onboardingOn;
+	
 	$:numberCito
 
-	let allowanceCheck:any;
-
+	// mint function => checks != 0 => checks allowance first => checks if amount >= balance 
     async function getAllowance() {
 		try {
 			console.log(`${$signerAddress}, ${GERSTEWEINCONTRACT}`)
@@ -75,7 +75,6 @@
 		return true;
 	}
 	
-	// mint function => checks != 0 => checks allowance first => checks if amount >= balance 
 	async function buyGWT() {
 		if (numberCito != 0) {		
 		await getAllowance();
@@ -85,7 +84,7 @@
 			await approveAllowance();
 			await mintMeSome();
 		}
-	}
+	  }
 	}	
 
 	// swap function => checks != 0 => checks if amount >= balance
@@ -93,31 +92,41 @@
 		if (numberCito != 0) {		
 			let amount2 = numberCito*1e6;
 		try {
-			$contracts.GersteWeinContract.mintMeSome(amount2);
+			$contracts.GersteWeinContract.swapMeSome(amount2);
 		}  catch (e) {
 			console.log(e);
 		}
 	}
 	}
 	
+	// check if onboarding needs to be done
 	const isMetamaskInstalled = () => {
-		let isInstalled = getWindowEthereum();
-		//console.log(isInstalled, " no ta instalado")
+		isInstalled = getWindowEthereum();
 		if (isInstalled === undefined) {
 			onboardingOn = true;
+			isInstalled = false;
+			console.log(isInstalled, " no ta instalado")
 		} return false
 	}
-
-	
 	
 </script>
 
+{#if isMetamaskInstalled() == false}
 <body>
+	<div>
+		<h1>Hay que instalar Metamask</h1>
+	</div>
+	<div style= "text-align: center">
+		
+		<a href="https://metamask.io/" target="_blank">
+			<GersteButton>Llevame a Metamask
+		</GersteButton></a>
+	</div>
+</body>
+
+	{:else}
+<body>	
 	<h1>Compra - Venta</h1>
-	{#if isMetamaskInstalled() == true}
-	hay que
-		{:else}
-	{/if}
 	
 	{#key $signerAddress}
 		
@@ -130,11 +139,7 @@
 	<h1>
 		{numberCito}
 	</h1>
-	<!-- 			<div style="input text-align:center"> 
-		<NumberInput
-		bind:numberCito 
-		/>
-	</div> -->
+
 	<div style= "text-align: center; font-size:26pt">
 		<input 
 				type=number
@@ -169,6 +174,7 @@
 	</div>
 	{/key}
 </body>
+{/if}
 
 <style>
 	input {
