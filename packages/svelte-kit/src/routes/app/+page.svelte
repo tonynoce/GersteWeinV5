@@ -97,10 +97,10 @@
 			console.log(e);
 		}
 	}
-	}
+	} 
 	
 	// check if onboarding needs to be done
-	const isMetamaskInstalled = () => {
+	function isMetamaskInstalled() {
 		isInstalled = getWindowEthereum();
 		if (isInstalled === undefined) {
 			onboardingOn = true;
@@ -108,17 +108,19 @@
 			console.log(isInstalled, " metamask no ta instalado")
 		} return false
 	}
+
+	isMetamaskInstalled()
 	
 </script>
 
-{#if isMetamaskInstalled() == false}
+{#if isInstalled == false}
 <body>
 	<div>
 		<h1>Hay que instalar Metamask</h1>
 	</div>
 	<div style= "text-align: center">
 		
-		<a href="https://metamask.io/" target="_blank">
+		<a href="https://metamask.io/" target="_blank" rel="noreferrer">
 			<GersteButton>Llevame a Metamask
 		</GersteButton></a>
 	</div>
