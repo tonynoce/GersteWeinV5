@@ -105,7 +105,7 @@
 		if (isInstalled === undefined) {
 			onboardingOn = true;
 			isInstalled = false;
-			console.log(isInstalled, " no ta instalado")
+			console.log(isInstalled, " metamask no ta instalado")
 		} return false
 	}
 	
