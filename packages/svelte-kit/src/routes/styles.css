@@ -55,7 +55,6 @@ h2 {
 	font-family: gersteWeinFont;
 	font-size: 24pt;
 	text-align: center;
-
 }
 
 pre {
@@ -76,6 +75,11 @@ pre {
 	flex-direction: column;
 	justify-content: center;
 	margin: 0 auto;
+}
+
+numbercito {
+	display: flex;
+	max-width: 48rem;
 }
 
 input,

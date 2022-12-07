@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import github from '$lib/images/github.svg';
 </script>
 
 <header>
@@ -18,7 +19,11 @@
 		</ul>
 	</nav>
 
-
+	<div class="corner">
+		<a href="https://github.com/tonynoce/GersteWeinV5">
+			<img src={github} alt="GitHub" />
+		</a>
+	</div>
 </header>
 
 <style>
