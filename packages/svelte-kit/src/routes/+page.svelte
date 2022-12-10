@@ -49,9 +49,11 @@
 	<h1>GersteWeinToken</h1>
 	<div class="text-column">
 	</div>
+	<div class=wrapper>
 		<Canvas>
-				<GersteWein3DLogo />
+			<GersteWein3DLogo />
 		</Canvas>
+	</div>
 	<div>
 		<h2>
 			Bienvenido!
@@ -59,12 +61,17 @@
 	</div>
 	<div class="text-column">
 		<a href="/app"><GersteButton>Entrar a la app</GersteButton></a>
-			<!-- 		<a href="/app" class="text-column">Entrar a la app</a>
- -->	</div>
+	</div>
 </body>
 
 <style>
-	a{
+
+	a {
 		text-align: center;
+	}
+
+	.wrapper{
+		min-height: 50vh;
+		min-height: 50vh;
 	}
 </style>

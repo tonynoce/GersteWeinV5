@@ -6,10 +6,9 @@
 
 <div class="app">
 	<Header />
+	
 	<main>
-		
-	<slot />
-
+		<slot />
 	</main>
 
 	<footer>

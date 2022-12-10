@@ -1,14 +1,9 @@
 <script  lang="ts">
-    export let texto:any;
-    export let width:number;
-    export let height:number;
-    export let style:any;
-
     export let color:any;
 </script>
 
 
-<button class="button" style={style} on:click
+<button class="button" on:click
     ><slot></slot>
 </button>
 

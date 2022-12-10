@@ -42,37 +42,45 @@
 
 <div> 
     {#if (coin == "GWT")} 
+    <div>
+        <img src={GersteWeinCoin} alt="GWT token">
+    </div>
         {#await getBalance("GWT")}
             <p>Cargando Balance de {coin}</p>
         {:then value} 
                 {balance}
         {/await}
-    <img src={GersteWeinCoin} alt="GWT token">
     {/if}  
     
     {#if (coin == "USD")} 
+    <div>
+        <img src={usdcoin} alt="USDC token">
+    </div>
         {#await getBalance("USD")}
         <p>Cargando Balance de {coin}</p>
         {:then value} 
                 {balance}
         {/await}    
-        <img src={usdcoin} alt="USDC token">
     {/if}
-    
 </div>
+
 <style>
-    
+
     p {
         font-family: gersteWeinFont;
-        font-size: 14pt;
+        font-size: 14pt;        
     }
 
     div {
         font-family: gersteWeinFont;
         font-size: 24pt;
-        padding: 1rem;
+        padding: 1vw;
         text-align: center;
-        size: 50px;
+
+    }
+
+    img {
+        width: 100px;
     }
 
 </style>

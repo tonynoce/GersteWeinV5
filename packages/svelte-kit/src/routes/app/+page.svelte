@@ -137,28 +137,28 @@
 </body>
 
 	{:else}
-	{#key $signerAddress}
+{#key $signerAddress}
 		
 <body>	
 	<h1>Compra - Venta</h1>
 	
     {#if !$connected}
-    <p  style= "text-align: center">Conectando...</p>
+    	<p  style= "text-align: center">Conectando...</p>
 	{/if}
 	
 	{#if $chainId === 80001}
-			
-	<h1>
-		{numberCito}
-	</h1>
+				
+		<h1>
+			{numberCito}
+		</h1>
 
-	<div style= "text-align: center; font-size:26pt">
-		<input 
-				type=number
-				min="0" max="100"
-				bind:value={numberCito}
-				>
-			</div>
+		<div style= "text-align: center; font-size:26pt">
+			<input 
+					type=number
+					min="0" max="100"
+					bind:value={numberCito}
+					>
+		</div>
 			<div style= "text-align: center">
 				<GersteButton
 				on:click={() => {buyGWT()}}
@@ -168,7 +168,7 @@
 				>vender</GersteButton>
 			</div>
 
-			{:else}
+	{:else}
 			<div style="text-align: center"
 			>
 				<h1 > 
@@ -177,16 +177,9 @@
 				<button
 				 on:click={() => {changeNetwork()}}>Agregar red Mumbai</button>
 			</div>
-			{/if}
-	<div
-	style="text-align: center; padding: 2rem">
-	<button
-	on:click={() => {
-		addGersteToken()
-	}}>Añadir Gwt</button>
-	</div>
-	<div  style="text-align: center"
-	>
+	{/if}
+		<div  style="text-align: center"
+		>
 		<p>
 			Conectado con la cuenta:
 		</p>
@@ -201,12 +194,25 @@
 		<CoinInfo coin={"USD"}/>
 	</div>
 
-</body>
+	<div
+	style="text-align: center; padding: 2rem">
+		<GersteButton
+		on:click={() => {
+			addGersteToken()
+		}}>Add GWT a Metamask
+		</GersteButton>
+	</div>
+
+	</body>
 
 {/key}
 {/if}
 
 <style>
+
+	div {
+		margin: 1em;
+	}
 
 	input {
 		font-family: gersteWeinFont;
@@ -214,7 +220,7 @@
 
 	.coins{
 		display: flex;
-		margin: 2rem;
+		margin: 3rem;
 		justify-content: center;
 	}
 
