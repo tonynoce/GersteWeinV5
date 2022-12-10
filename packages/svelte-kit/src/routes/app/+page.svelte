@@ -138,7 +138,7 @@
 
 	{:else}
 	{#key $signerAddress}
-		{$signerAddress}
+		
 <body>	
 	<h1>Compra - Venta</h1>
 	
@@ -185,6 +185,15 @@
 		addGersteToken()
 	}}>Añadir Gwt</button>
 	</div>
+	<div  style="text-align: center"
+	>
+		<p>
+			Conectado con la cuenta:
+		</p>
+		<h3>
+			{$signerAddress}
+		</h3>
+	</div>
 	<div
 	class="coins"
 	>
@@ -208,5 +217,5 @@
 		margin: 2rem;
 		justify-content: center;
 	}
-	
+
 </style>

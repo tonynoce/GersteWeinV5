@@ -57,6 +57,12 @@ h2 {
 	text-align: center;
 }
 
+h3 {
+	font-family: gersteWeinFont;
+	font-size: 12pt;
+	text-align: center;
+}
+
 pre {
 	font-size: 16px;
 	font-family: var(--font-mono);
