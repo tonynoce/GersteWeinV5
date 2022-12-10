@@ -35,6 +35,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"evm-bn": "^1.1.2",
 		"svelte-ethers-store": "^2.5.8"
 	}
 }

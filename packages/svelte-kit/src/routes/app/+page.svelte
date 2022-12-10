@@ -21,13 +21,23 @@
 	import { allowance } from "../stores/stores"
 
 	import GersteButton from "$lib/components/GersteButton.svelte"
-	import NumberInput from '$lib/components/NumberInput.svelte';
+	import NumberInput from '$lib/components/NumberInput.svelte'
+	import CoinInfo from "$lib/components/CoinInfo.svelte"
 
 	import { changeNetwork, handleChainChanged, handleAccountsChanged, addGersteToken, addUSDCtToken } from "../stores/metamask"
 	import { getWindowEthereum } from "../stores/metamask"
 	
+
+	/**
+	 * @dev Prompt metamask to connect
+	 * and go to the mumbai network
+	*/
 	onMount(() => {
 		defaultEvmStores.setProvider();
+
+		if ($chainId != 80001) {
+			changeNetwork()
+		}
 	});
 	
 	let allowanceCheck:any;
@@ -77,15 +87,15 @@
 	
 	async function buyGWT() {
 		if (numberCito != 0) {		
-		await getAllowance();
-		if (allowanceCheck != 0) {
-			await mintMeSome();
-		} else {
-			await approveAllowance();
-			await mintMeSome();
-		}
-	  }
-	}	
+			await getAllowance();
+				if (allowanceCheck != 0) {
+					await mintMeSome();
+				} else {
+					await approveAllowance();
+					await mintMeSome();
+				}
+	  		}
+		}	
 
 	// swap function => checks != 0 => checks if amount >= balance
 	async function sellGWT() {
@@ -127,13 +137,13 @@
 </body>
 
 	{:else}
+	{#key $signerAddress}
+		{$signerAddress}
 <body>	
 	<h1>Compra - Venta</h1>
 	
-	{#key $signerAddress}
-		
     {#if !$connected}
-    <p>Conectando...</p>
+    <p  style= "text-align: center">Conectando...</p>
 	{/if}
 	
 	{#if $chainId === 80001}
@@ -157,6 +167,7 @@
 				on:click={() => {sellGWT()}}
 				>vender</GersteButton>
 			</div>
+
 			{:else}
 			<div style="text-align: center"
 			>
@@ -167,19 +178,35 @@
 				 on:click={() => {changeNetwork()}}>Agregar red Mumbai</button>
 			</div>
 			{/if}
-	<div class="text-column">
-		<button
-		style="text-align: center"
+	<div
+	style="text-align: center; padding: 2rem">
+	<button
 	on:click={() => {
 		addGersteToken()
 	}}>Añadir Gwt</button>
 	</div>
-	{/key}
+	<div
+	class="coins"
+	>
+		<CoinInfo coin={"GWT"}/>
+		<CoinInfo coin={"USD"}/>
+	</div>
+
 </body>
+
+{/key}
 {/if}
 
 <style>
+
 	input {
 		font-family: gersteWeinFont;
 	}
+
+	.coins{
+		display: flex;
+		margin: 2rem;
+		justify-content: center;
+	}
+	
 </style>
