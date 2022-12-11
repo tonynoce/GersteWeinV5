@@ -4,6 +4,7 @@
     export let data: PageData;
 </script>
 
+
 <body>
     <h1>Como funciona?</h1>
 
@@ -36,5 +37,10 @@
 		font-family: 'Courier New', Courier, monospace;
 		font-size: 14pt;
 	}
+    
+    img {
+        position: fixed;
+        z-index: 0;
+    }
 
 </style>
