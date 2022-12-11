@@ -1,23 +1,9 @@
 <script lang="ts">
-	import {
-		defaultEvmStores,
-		connected,
-		provider,
-		chainId,
-		//ChainData,
-		signer,
-		signerAddress,
-		contracts
-	} from 'svelte-ethers-store';
-
-	import { ethers } from 'ethers';
-
 	import GersteButton from "$lib/components/GersteButton.svelte"
 
 	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
-	
 	import { Canvas } from '@threlte/core';
-
+	
 </script>
 
 <svelte:head>
@@ -54,6 +40,7 @@
 	}
 
 	.wrapper{
+		background-image: radial-gradient(rgba(35, 65, 75, 0.442) 10%, rgba(102, 51, 153, 0) 60%);
 		min-height: 50vh;
 		min-height: 50vh;
 	}
