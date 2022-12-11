@@ -5,7 +5,7 @@ export const USDCONTRACT = '0xFEca406dA9727A25E71e732F9961F680059eF1F9';
 
 export let allowance = writable();
 
-export let GWTBalance = writable();
+export let GWTbalance = writable();
 export let USDCbalance = writable();
 
 export const MUMBAINETWORK = {

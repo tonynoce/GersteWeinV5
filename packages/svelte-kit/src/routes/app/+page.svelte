@@ -17,16 +17,27 @@
 		contracts
 	} from 'svelte-ethers-store';
 
-    import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "../stores/stores"
-	import { allowance } from "../stores/stores"
-
+	
 	import GersteButton from "$lib/components/GersteButton.svelte"
 	import NumberInput from '$lib/components/NumberInput.svelte'
 	import CoinInfo from "$lib/components/CoinInfo.svelte"
 
-	import { changeNetwork, handleChainChanged, handleAccountsChanged, addGersteToken, addUSDCtToken } from "../stores/metamask"
+	
+	import { changeNetwork, handleChainChanged, addGersteToken, addUSDCtToken } from "../stores/metamask"
 	import { getWindowEthereum } from "../stores/metamask"
 	
+	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK, USDCbalance, GWTbalance} from "../stores/stores"
+	import { GWTabi } from '$lib/ABI/GWTabi';
+	import { USDCabi } from '$lib/ABI/USDCabi';
+	import { allowance } from "../stores/stores"
+
+	// instantiate GWT contract
+	let gwtcontract = new ethers.Contract(GERSTEWEINCONTRACT, GWTabi, $signer);
+	defaultEvmStores.attachContract('GersteWeinContract', GERSTEWEINCONTRACT, GWTabi);
+
+	// instantiate USDC contract
+	let usdccontract = new ethers.Contract(USDCONTRACT, USDCabi, $signer);
+	defaultEvmStores.attachContract('USDCContract', USDCONTRACT, USDCabi);
 
 	/**
 	 * @dev Prompt metamask to connect
@@ -58,7 +69,7 @@
 			$allowance = allowanceCheck;
 			
 			return allowanceCheck
-				} catch (e) {
+		} catch (e) {
 			console.log(e);
 		}
 	}
@@ -85,21 +96,28 @@
 		return true;
 	}
 	
+	/**
+	 * @dev checks if the input value is different from zero
+	 * and that the user has enough USDtokens
+	*/
 	async function buyGWT() {
-		if (numberCito != 0) {		
-			await getAllowance();
+		if (numberCito != 0 && $USDCbalance >= numberCito) {
+			if (allowanceCheck == undefined) {
+				await getAllowance();
+			}
 				if (allowanceCheck != 0) {
 					await mintMeSome();
 				} else {
 					await approveAllowance();
 					await mintMeSome();
 				}
+				
 	  		}
 		}	
 
 	// swap function => checks != 0 => checks if amount >= balance
 	async function sellGWT() {
-		if (numberCito != 0) {		
+		if (numberCito != 0 && $GWTbalance >= numberCito) {
 			let amount2 = numberCito*1e6;
 		try {
 			$contracts.GersteWeinContract.swapMeSome(amount2);
@@ -120,7 +138,23 @@
 	}
 
 	isMetamaskInstalled()
-	
+
+	function handleAccountsChanged() {
+    try {
+        getWindowEthereum().on('accountsChanged', (accounts:string[]) => {
+        // Handle the new accounts, or lack thereof.
+        // "accounts" will always be an array, but it can be empty.
+		allowanceCheck = undefined;
+        //console.log("hubo un cambio de usuario: ", accounts)
+        //window.location.reload();
+        }); 
+    } catch (err) {
+    console.log("error! la cuenta le pasa algo")
+        }   
+    }
+
+	handleAccountsChanged();
+
 </script>
 
 {#if isInstalled == false}
@@ -137,8 +171,9 @@
 </body>
 
 	{:else}
+
 {#key $signerAddress}
-		
+
 <body>	
 	<h1>Compra - Venta</h1>
 	
@@ -161,23 +196,16 @@
 		</div>
 			<div style= "text-align: center">
 				<GersteButton
-				on:click={() => {buyGWT()}}
-				>Comprar</GersteButton>
+					on:click={() => {buyGWT()}}
+					>Comprar
+				</GersteButton>
 				<GersteButton
-				on:click={() => {sellGWT()}}
-				>vender</GersteButton>
+					on:click={() => {sellGWT()}}
+					>Vender
+				</GersteButton>
 			</div>
 
-	{:else}
-			<div style="text-align: center"
-			>
-				<h1 > 
-					Conectate a Mumbai Papu
-				</h1>
-				<button
-				 on:click={() => {changeNetwork()}}>Agregar red Mumbai</button>
-			</div>
-	{/if}
+	
 		<div  style="text-align: center"
 		>
 		<p>
@@ -197,13 +225,24 @@
 	<div
 	style="text-align: center; padding: 2rem">
 		<GersteButton
-		on:click={() => {
-			addGersteToken()
-		}}>Add GWT a Metamask
+			on:click={() => {
+				addGersteToken()
+			}}>Add GWT a Metamask
 		</GersteButton>
 	</div>
-
-	</body>
+	{:else}
+			<div style="text-align: center"
+			>
+				<h2> 
+					Conectate a la red Mumbai:
+				</h2>
+				<GersteButton
+					on:click={() => {changeNetwork()}}
+					>Agregar red Mumbai
+				</GersteButton>
+							</div>
+	{/if}
+</body>
 
 {/key}
 {/if}

@@ -14,26 +14,9 @@
 
 	import GersteButton from "$lib/components/GersteButton.svelte"
 
-	
 	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
 	
-	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK} from "./stores/stores"
-	
 	import { Canvas } from '@threlte/core';
-	
-	import { GWTabi } from '../lib/ABI/GWTabi';
-	import { USDCabi } from '../lib/ABI/USDCabi';
-	// instantiate GWT contract
-	let gwtcontract = new ethers.Contract(GERSTEWEINCONTRACT, GWTabi, $signer);
-	defaultEvmStores.attachContract('GersteWeinContract', GERSTEWEINCONTRACT, GWTabi);
-
-	// instantiate USDC contract
-	let usdccontract = new ethers.Contract(USDCONTRACT, USDCabi, $signer);
-	defaultEvmStores.attachContract('USDCContract', USDCONTRACT, USDCabi);
-
-	function handleClick() {
-		alert('clicked')
-	}
 
 </script>
 

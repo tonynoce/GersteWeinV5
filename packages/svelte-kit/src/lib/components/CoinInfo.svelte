@@ -4,6 +4,8 @@
     import { fromBn } from "evm-bn";
 
 	import { contracts, signerAddress } from 'svelte-ethers-store';
+    import { USDCbalance, GWTbalance} from "../../routes/stores/stores"
+
 
     //	import github from '$lib/images/github.svg';
     import usdcoin from "$lib/images/usdc-logo.svg"
@@ -22,6 +24,7 @@
                 balance = await $contracts.GersteWeinContract.balanceOf($signerAddress);
                 balance = fromBn(BigNumber.from(balance), 6);
                 balance = Number(balance).toFixed(2);
+                $GWTbalance = balance;
                 return balance
             }
 
@@ -29,6 +32,7 @@
                 balance = await $contracts.USDCContract.balanceOf($signerAddress);
                 balance = fromBn(BigNumber.from(balance), 6);
                 balance = Number(balance).toFixed(2);
+                $USDCbalance = balance;
                 return balance
             }   
         } catch (e) {
@@ -46,7 +50,7 @@
         <img src={GersteWeinCoin} alt="GWT token">
     </div>
         {#await getBalance("GWT")}
-            <p>Cargando Balance de {coin}</p>
+            <p>Cargando...</p>
         {:then value} 
                 {balance}
         {/await}
@@ -57,7 +61,7 @@
         <img src={usdcoin} alt="USDC token">
     </div>
         {#await getBalance("USD")}
-        <p>Cargando Balance de {coin}</p>
+            <p>Cargando...</p>
         {:then value} 
                 {balance}
         {/await}    
