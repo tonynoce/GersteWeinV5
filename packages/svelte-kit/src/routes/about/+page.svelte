@@ -39,7 +39,7 @@
 		flex: 0.3;
 		flex-direction: column;
 		justify-content: center;
-		margin: 0 auto;
+		align-content: center;
 		font-family: 'Courier New', Courier, monospace;
 		font-size: 14pt;
 	}

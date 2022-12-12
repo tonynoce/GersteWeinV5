@@ -3,7 +3,7 @@
 	import { useFrame } from '@threlte/core'
 
     import { GLTF} from "@threlte/extras"
-	import { MeshBasicMaterial, MeshStandardMaterial } from 'three';
+	import { AxesHelper, BoxHelper, GridHelper, MeshBasicMaterial, MeshStandardMaterial } from 'three';
 	import { degToRad } from 'three/src/math/MathUtils'
 
 	let materialForGWT = new MeshStandardMaterial({color: "white"})
@@ -26,6 +26,9 @@
 	})
 </script>
 
+
+<!-- <T.AxesHelper /> -->
+
 <T.PerspectiveCamera makeDefault position={[0, 0, 15]} fov={24}>
 	<OrbitControls 
 	maxPolarAngle={degToRad(80)} 
@@ -35,13 +38,18 @@
 	 />
 </T.PerspectiveCamera>
 
-<T.AmbientLight intensity={0.5} />
+<T.AmbientLight intensity={0.85} />
 
-<T.DirectionalLight position={[3, 10, 10]} intensity={1} />
-<T.DirectionalLight position={[-3, 10, -10]} intensity={0.5} />
+<T.DirectionalLight position={[3, 10, 10]} intensity={1} color={"rgb(20, 70, 220)"}/>
+<T.DirectionalLight position={[-5, 10, -10]} intensity={0.75} color={"rgb(70, 100, 100)"}/>
 
-<T.DirectionalLight position={[-15, -10, 20]} intensity={0.25} color={"orange"}/>
-<T.DirectionalLight position={[5, -10, 10]} intensity={0.25} color={"blue"}/>
+<T.DirectionalLight position={[-15, -10, 20]} intensity={0.35} color={"orange"}/>
+<T.DirectionalLight position={[5, -10, 10]} intensity={0.35} color={"blue"}/>
+
+<T.PointLight position={[0, -2, 25]} intensity={1} color={"rgb(20, 70, 220)"}/>
+
+<T.PointLight position={[15, 2, 0]} intensity={0.25} color={"rgb(20, 70, 220)"}/>
+<T.PointLight position={[-15, 1, 0]} intensity={0.25} color={"rgb(20, 70, 220)"}/>
 
 
 <GLTF url="GersteweinLogo.glb"
