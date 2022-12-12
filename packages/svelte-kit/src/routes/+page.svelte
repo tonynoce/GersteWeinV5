@@ -19,7 +19,7 @@
 	<div class="text-column">
 	</div>
 	<div class=wrapper>
-		<Canvas>
+		<Canvas >
 			<GersteWein3DLogo />
 		</Canvas>
 	</div>
