@@ -23,8 +23,8 @@
 	<div class=wrapper>
 		<Canvas>
 			<GersteWein3DLogo />
-			<T.PointLight position={[-5, 3, 10]} intensity={1} color={"rgb(20, 70, 220)"}/>
-			<T.PointLight position={[5, 3, -10]} intensity={1} color={"rgb(20, 70, 220)"}/>
+			<T.PointLight position={[-5, 3, 10]} intensity={1} color={"rgb(70, 70, 80)"}/>
+			<T.PointLight position={[5, 3, -10]} intensity={1} color={"rgb(70, 70, 80)"}/>
 		</Canvas>
 	</div>
 	<div>
