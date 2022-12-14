@@ -14,12 +14,12 @@
 
 
 
-<body>
+<main>
 	<h1>GersteWeinToken</h1>
 	<div class="text-column">
 	</div>
 	<div class=wrapper>
-		<Canvas >
+		<Canvas>
 			<GersteWein3DLogo />
 		</Canvas>
 	</div>
@@ -31,7 +31,7 @@
 	<div class="text-column">
 		<a href="/app"><GersteButton>Entrar a la app</GersteButton></a>
 	</div>
-</body>
+</main>
 
 <style>
 
@@ -42,6 +42,6 @@
 	.wrapper{
 		background-image: radial-gradient(rgba(35, 65, 75, 0.442) 10%, rgba(102, 51, 153, 0) 60%);
 		min-height: 50vh;
-		min-height: 50vh;
+		width: 100%;
 	}
 </style>
