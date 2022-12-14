@@ -27,12 +27,14 @@
 	} */
 
 	img {
-		width: 30vw;
+		width: 50%;
 	}
 
 	.text-wrapper {
 		font-family: 'Courier New', Courier, monospace;
 		font-size: 14pt;
+		margin-left: 3vw;
+		margin-right: 3vw;
 	}
 
 </style>

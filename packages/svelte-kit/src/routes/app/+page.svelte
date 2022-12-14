@@ -4,6 +4,7 @@
 
 	import { ethers } from 'ethers';
 	import { BigNumber } from "ethers";
+	import { fade } from "svelte/transition"
 
 
 	import {
@@ -184,14 +185,17 @@
 	
 	{#if $chainId === 80001}
 				
-		<h1>
+<!-- 		<h1
+		transition:fade
+		>
 			{numberCito}
-		</h1>
+		</h1> -->
 
 		<div style= "text-align: center; font-size:26pt">
 			<input 
 					type=number
 					min="0" max="100"
+					autofocus
 					bind:value={numberCito}
 					>
 		</div>
@@ -250,18 +254,37 @@
 
 <style>
 
-/* 	div {
-		margin: 1em;
-	} */
+ 	div input {
+		margin: 15px;
+	}
 
 	input {
 		font-family: gersteWeinFont;
+		text-align: center; 
+		font-size:38pt;
+		color: white;
+		background: rgba(0, 0, 0, 0);
+		border-color: rgba(0, 0, 0, 0);
+		width: 15vw;
 	}
 
+	input:hover{
+        -webkit-box-shadow:0px 0px 80px 5px rgba(255, 46, 238, 0.35);
+        -moz-box-shadow: 0px 0px 80px 5px rgba(255, 46, 238, 0.35);
+        box-shadow: 0px 0px 120px 10px rgba(255, 46, 238, 0.75);
+	}
+
+
+	
 	.coins{
 		display: flex;
 		margin: 3rem;
 		justify-content: center;
+	}
+
+	input[type=number]::-webkit-inner-spin-button, 
+	input[type=number]::-webkit-outer-spin-button {
+  		opacity: 1;
 	}
 
 </style>
