@@ -3,23 +3,24 @@
 
 	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
 	import { Canvas } from '@threlte/core';
-	
+
+	//size={{width: 00, height: 200}}
+	let windowWidth:number;
 </script>
 
 <svelte:head>
 	<title>GersteWein Token</title>
 	<meta name="description" content="GersteWeinToken dApp" />
-	
 </svelte:head>
 
-
+<svelte:window bind:innerWidth={windowWidth}/>
 
 <main>
 	<h1>GersteWeinToken</h1>
 	<div class="text-column">
 	</div>
 	<div class=wrapper>
-		<Canvas>
+		<Canvas size={{width: windowWidth, height: 500}}>
 			<GersteWein3DLogo />
 		</Canvas>
 	</div>
@@ -41,6 +42,7 @@
 
 	.wrapper{
 		background-image: radial-gradient(rgba(35, 65, 75, 0.442) 10%, rgba(102, 51, 153, 0) 60%);
-		width: 100%;
+		min-height: 50vh;
+		width: 50%;
 	}
 </style>
