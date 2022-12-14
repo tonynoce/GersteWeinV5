@@ -45,6 +45,7 @@
 
 	.wrapper{
 		background-image: radial-gradient(rgba(35, 65, 75, 0.442) 10%, rgba(102, 51, 153, 0) 60%);
+		min-width: 70vw;
 		min-height: 50vh;
 	}
 </style>
