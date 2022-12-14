@@ -61,16 +61,6 @@
 		--background: rgba(48, 48, 48, 0.7);
 	}
 
-	svg {
-		width: 2em;
-		height: 3em;
-		display: block;
-	}
-
-	path {
-		fill: var(--background);
-	}
-
 	ul {
 		position: relative;
 		padding: 0;

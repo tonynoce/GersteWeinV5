@@ -27,7 +27,7 @@
 	} */
 
 	img {
-		width: 50vw;
+		width: 30vw;
 	}
 
 	.text-wrapper {
