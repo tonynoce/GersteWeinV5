@@ -265,7 +265,7 @@
 		color: white;
 		background: rgba(0, 0, 0, 0);
 		border-color: rgba(0, 0, 0, 0);
-		width: 15vw;
+		width: 100%;
 	}
 
 	input:hover{
