@@ -5,6 +5,7 @@
 	import { Canvas, T } from '@threlte/core';
 
 	//size={{width: 00, height: 200}}
+	// size={{width: windowWidth-15, height: 500}}
 	let windowWidth:number;
 </script>
 
@@ -15,12 +16,12 @@
 
 <svelte:window bind:innerWidth={windowWidth}/>
 
-<main>
-	<h1>GersteWeinToken</h1>
+<body>
 	<div class="text-column">
+	<h1>GersteWeinToken</h1>
 	</div>
 	<div class=wrapper>
-		<Canvas size={{width: windowWidth-15, height: 500}}>
+		<Canvas>
 			<GersteWein3DLogo />
 			<T.PointLight position={[-5, 3, 10]} intensity={1} color={"rgb(20, 70, 220)"}/>
 			<T.PointLight position={[5, 3, -10]} intensity={1} color={"rgb(20, 70, 220)"}/>
@@ -34,7 +35,7 @@
 	<div class="text-column">
 		<a href="/app"><GersteButton>Entrar a la app</GersteButton></a>
 	</div>
-</main>
+</body>
 
 <style>
 
@@ -44,5 +45,6 @@
 
 	.wrapper{
 		background-image: radial-gradient(rgba(35, 65, 75, 0.442) 10%, rgba(102, 51, 153, 0) 60%);
+		min-height: 50vh;
 	}
 </style>
