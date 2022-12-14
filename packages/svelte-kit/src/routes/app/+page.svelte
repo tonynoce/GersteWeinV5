@@ -139,6 +139,7 @@
 
 	isMetamaskInstalled()
 
+	// handle account change and set the allowanceCheck to undefined
 	function handleAccountsChanged() {
     try {
         getWindowEthereum().on('accountsChanged', (accounts:string[]) => {
@@ -249,9 +250,9 @@
 
 <style>
 
-	div {
+/* 	div {
 		margin: 1em;
-	}
+	} */
 
 	input {
 		font-family: gersteWeinFont;

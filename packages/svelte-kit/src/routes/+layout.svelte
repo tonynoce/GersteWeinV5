@@ -5,20 +5,22 @@
 </script>
 
 <div class="app">
-	<Header />
-	
-	<main>
-		<slot />
-	</main>
-
-	<footer>
-		<p>Hecho con &#x1F496 por <a>BLOCK33</a></p>
-	</footer>
 </div>
+<Header />
+<main>
+	<slot />
+</main>
+<footer>
+	<p>Hecho con &#x1F496 por <a>BLOCK33</a></p>
+</footer>
+	
+	
+	
+	
 
 
-
-<!-- 
+<style>
+/* 
 		main {
 		flex: 1;
 		display: flex;
@@ -29,16 +31,17 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
- -->
-
-<style>
-	.app {
+ */
+ /* 	
+ 	.app {
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-	}
+	} */
 
 	footer {
+		margin-top:92vh;
+		position: fixed;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

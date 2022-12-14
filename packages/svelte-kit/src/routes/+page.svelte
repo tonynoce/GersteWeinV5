@@ -8,7 +8,7 @@
 
 <svelte:head>
 	<title>GersteWein Token</title>
-	<meta name="description" content="GersteWeuinToken dApp" />
+	<meta name="description" content="GersteWeinToken dApp" />
 	
 </svelte:head>
 

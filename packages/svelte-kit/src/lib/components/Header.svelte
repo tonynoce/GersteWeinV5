@@ -55,6 +55,7 @@
 	}
 
 	nav {
+		text-align: center;
 		display: flex;
 		justify-content: center;
 		--background: rgba(48, 48, 48, 0.7);
