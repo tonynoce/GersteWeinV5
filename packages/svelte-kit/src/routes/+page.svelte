@@ -2,7 +2,7 @@
 	import GersteButton from "$lib/components/GersteButton.svelte"
 
 	import GersteWein3DLogo from '$lib/components/GersteWein3DLogo.svelte';
-	import { Canvas } from '@threlte/core';
+	import { Canvas, T } from '@threlte/core';
 
 	//size={{width: 00, height: 200}}
 	let windowWidth:number;
@@ -20,8 +20,10 @@
 	<div class="text-column">
 	</div>
 	<div class=wrapper>
-		<Canvas size={{width: windowWidth, height: 500}}>
+		<Canvas size={{width: windowWidth-15, height: 500}}>
 			<GersteWein3DLogo />
+			<T.PointLight position={[-5, 3, 10]} intensity={1} color={"rgb(20, 70, 220)"}/>
+			<T.PointLight position={[5, 3, -10]} intensity={1} color={"rgb(20, 70, 220)"}/>
 		</Canvas>
 	</div>
 	<div>
