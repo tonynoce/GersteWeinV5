@@ -40,8 +40,8 @@
 	} */
 
 	footer {
-		margin-top:92vh;
-		position: fixed;
+/* 		margin-top:92vh;
+ */		position: relative;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
