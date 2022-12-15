@@ -11,7 +11,7 @@
 </script>
 
 {#if (showMe === true)}
-    <main  transition:fly="{{ x: -200, duration: 2000 }}">
+    <main transition:fly="{{ x: -200, duration: 2000 }}">
         <div class="wrapper">
             <div class = "modal">
                 {#if (allowanceChecked != false)}
@@ -19,8 +19,8 @@
                     &#10004; Contrato Aprobado
                 </p>
                 {/if}
-                {#key txHash}
-                    
+
+                {#key txHash}    
                 {#if (txHash === undefined)}
                     <p>Mandando...</p>
                     {:else}
@@ -32,6 +32,7 @@
                         >Mirá la transacción en etherscan</a>
                     {/if}
                 {/key}
+                
                 <slot/>
                 <div class="buttonWrapper"> 
                     <button
@@ -50,7 +51,9 @@
         background-image: radial-gradient(farthest-corner at 20px 20px,rgba(31, 127, 172, 0.7) 25%, rgba(135, 20, 189, 0.25) 80%);
         position: fixed;
         top: 25vh;
+        left: 25vw;
         width: 45vw;
+        max-width: 50%;
         min-height: 15vh;
         border-radius: 5px;
         box-shadow: 0px 0px 120px 10px rgba(2, 115, 207, 0.75);

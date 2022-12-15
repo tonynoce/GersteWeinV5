@@ -153,6 +153,7 @@
 					await getUSDCbalance();
 					numberCito = 0
 					showMe = false
+					txHash = undefined;
 				} else {
 					showMe = true;
 
@@ -166,7 +167,6 @@
 					numberCito = 0;
 					showMe = false;
 					txHash = undefined;
-
 				}
 				
 	  		}
