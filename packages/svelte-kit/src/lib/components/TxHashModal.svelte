@@ -2,7 +2,7 @@
     import {fly} from "svelte/transition"
 
     export let txHash:string;
-    export let allowanceChecked:boolean;
+    export let allowanceCheck:boolean;
     export let showMe = false;
 
     export function hide() {
@@ -11,10 +11,10 @@
 </script>
 
 {#if (showMe === true)}
-    <main transition:fly="{{ x: -200, duration: 2000 }}">
+    <main transition:fly="{{ x: -200, duration: 1500 }}">
         <div class="wrapper">
             <div class = "modal">
-                {#if (allowanceChecked != false)}
+                {#if (allowanceCheck != false)}
                 <p>
                     &#10004; Contrato Aprobado
                 </p>

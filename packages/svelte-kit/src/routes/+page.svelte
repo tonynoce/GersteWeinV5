@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>GersteWein Token</title>
+	<title>Gerste Wein Token</title>
 	<meta name="description" content="GersteWeinToken dApp" />
 </svelte:head>
 
@@ -18,13 +18,13 @@
 
 <body>
 	<div class="text-column">
-	<h1>GersteWeinToken</h1>
+	<h1>Gerste Wein Token</h1>
 	</div>
 	<div class=wrapper>
 		<Canvas>
 			<GersteWein3DLogo />
-			<T.PointLight position={[-5, 3, 10]} intensity={1} color={"rgb(70, 70, 80)"}/>
-			<T.PointLight position={[5, 3, -10]} intensity={1} color={"rgb(70, 70, 80)"}/>
+			<T.PointLight position={[-5, 3, 10]} intensity={0.5} color={"rgb(70, 70, 80)"}/>
+			<T.PointLight position={[5, 3, -10]} intensity={0.5} color={"rgb(70, 70, 80)"}/>
 		</Canvas>
 	</div>
 	<div>

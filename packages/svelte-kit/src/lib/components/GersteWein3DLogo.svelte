@@ -9,17 +9,7 @@
 	let materialForGWT = new MeshStandardMaterial({color: "white"})
 	
 	let rotationY = 0;
-/* 
-	let animationFrameHandle;
 
-
-	function tick() {
-		rotationY += 0.007;
-	  animationFrameHandle = requestAnimationFrame(tick);
-	};
-	autoRotate
-	autoRotateSpeed={3.5}
-	tick() */
 
 	useFrame(() => {
   		rotationY -= 0.005;
@@ -40,13 +30,13 @@
 
 <T.AmbientLight intensity={0.85} />
 
-<T.DirectionalLight position={[3, 10, 10]} intensity={1} color={"rgb(20, 70, 220)"}/>
+<T.DirectionalLight position={[3, 10, 10]} intensity={0.75} color={"rgb(20, 70, 220)"}/>
 <T.DirectionalLight position={[-5, 10, -10]} intensity={0.75} color={"rgb(70, 100, 100)"}/>
 
 <T.DirectionalLight position={[-15, -10, 20]} intensity={0.35} color={"orange"}/>
 <T.DirectionalLight position={[5, -10, 10]} intensity={0.35} color={"blue"}/>
 
-<T.PointLight position={[0, -2, 25]} intensity={1} color={"rgb(20, 70, 220)"}/>
+<T.PointLight position={[0, -2, 25]} intensity={0.75} color={"rgb(20, 70, 220)"}/>
 
 <T.PointLight position={[15, 2, 0]} intensity={0.25} color={"rgb(20, 70, 220)"}/>
 <T.PointLight position={[-15, 1, 0]} intensity={0.25} color={"rgb(20, 70, 220)"}/>

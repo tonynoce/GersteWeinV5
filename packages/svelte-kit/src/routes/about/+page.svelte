@@ -4,7 +4,7 @@
 </svelte:head>
 
 <div class="text-column">
-	<h1>Acerca de GersteWein</h1>
+	<h1>Acerca de Gerste Wein</h1>
 </div>
 
 <body>

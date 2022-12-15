@@ -1,5 +1,4 @@
 <script lang="ts">
-	
 	import { onMount } from 'svelte';
 
 	import { ethers } from 'ethers';
@@ -225,7 +224,7 @@
 	handleAccountsChanged();
 
 </script>
-<TxHashModal showMe={showMe} txHash={txHash} allowanceChecked={allowanceCheck}>
+<TxHashModal {showMe} {txHash} {allowanceCheck}>
 </TxHashModal>
 
 {#if isInstalled == false}

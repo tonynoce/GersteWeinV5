@@ -1,9 +1,58 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import type { PageData } from './$types';
+    import { ethers } from 'ethers';
+
+    import {
+        defaultEvmStores,
+		connected,
+		provider,
+		chainId,
+		//ChainData,
+		signer,
+		signerAddress,
+		contracts
+	} from 'svelte-ethers-store';
+    
+    import GersteButton from "$lib/components/GersteButton.svelte"
+    import TxHashModal from '$lib/components/TxHashModal.svelte';
+
+    const faucetUSDCcontractAddress = "0xFEca406dA9727A25E71e732F9961F680059eF1F9"
+    const faucetUSDABI = ["function mintTokens(uint _numberOfTokens) external"]
+
+    onMount(() => {
+		defaultEvmStores.setProvider();
+	});
+
+    defaultEvmStores.attachContract('faucetUSDCcontract', faucetUSDCcontractAddress, faucetUSDABI);
+
+    //	defaultEvmStores.attachContract('GersteWeinContract', GERSTEWEINCONTRACT, GWTabi);
+    let faucetUSDCcontract = new ethers.Contract(faucetUSDCcontractAddress, faucetUSDABI, $signer);
+
+    let txHash:any;
+	let showMe = false;
+
+	$: txHash
+
+    async function getMeFaucetUSD() {
+        try {
+            showMe = true;
+            let tx = await $contracts.faucetUSDCcontract.mintTokens("100");
+            
+            txHash = tx.hash;
+            await $provider.waitForTransaction(txHash)
+            showMe = false;
+        } catch (e) {
+            console.log(e)
+            showMe = false;
+        }
+    }
     
     export let data: PageData;
 </script>
 
+<TxHashModal {showMe} {txHash}>
+</TxHashModal>
 
 <body>
     <h1>Como funciona?</h1>
@@ -23,11 +72,21 @@
         </p>
     </div>
 
+    <div class="text-wrapper">
+        <h2>Faucet</h2>
+        <p>La app se encuentra en modo testeo así que podés conseguir 100usd de la faucet</p>
+    </div>
+    <div class="text-column">
+        <GersteButton
+        on:click={() => {getMeFaucetUSD()}}
+        >
+        Conseguir 100USD
+        </GersteButton>
+    </div>
 </body>
 
 
 <style>
-
     .text-wrapper {
 		max-width: 48rem;
 		flex: 0.3;
@@ -37,10 +96,4 @@
 		font-family: 'Courier New', Courier, monospace;
 		font-size: 14pt;
 	}
-    
-    img {
-        position: fixed;
-        z-index: 0;
-    }
-
 </style>

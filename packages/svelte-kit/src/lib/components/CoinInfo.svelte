@@ -86,11 +86,17 @@
         font-size: 24pt;
         padding: 1vw;
         text-align: center;
-
     }
 
     img {
         width: 100px;
+        border-radius: 100%;
+        transition: all 500ms;
+    }
+
+    img:hover {
+        width: 110px;
+        box-shadow: 0px 0px 80px 10px rgba(93, 186, 248, 0.699);
     }
 
     h2 {
