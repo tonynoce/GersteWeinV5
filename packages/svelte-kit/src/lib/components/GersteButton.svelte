@@ -26,6 +26,7 @@
         -webkit-box-shadow:0px 0px 80px 5px rgba(46,157,255,0.35);
         -moz-box-shadow: 0px 0px 80px 5px rgba(46,157,255,0.35);
         box-shadow: 0px 0px 120px 10px rgba(46,157,255,0.35);
+        cursor: pointer;
     }
 
 </style>

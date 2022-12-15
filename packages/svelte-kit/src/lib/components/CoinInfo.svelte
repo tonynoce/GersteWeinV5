@@ -6,6 +6,8 @@
 	import { contracts, signerAddress } from 'svelte-ethers-store';
     import { USDCbalance, GWTbalance} from "../../routes/stores/stores"
 
+    import { fade } from "svelte/transition"
+
 
     //	import github from '$lib/images/github.svg';
     import usdcoin from "$lib/images/usdc-logo.svg"
@@ -18,7 +20,7 @@
     /**
      * @dev gets balance of input coin
     */
-    async function getBalance(coin:string) {
+    export async function getBalance(coin:string) {
         try {
             if (coin == "GWT" ){
                 balance = await $contracts.GersteWeinContract.balanceOf($signerAddress);
@@ -51,19 +53,23 @@
     </div>
         {#await getBalance("GWT")}
             <p>Cargando...</p>
-        {:then value} 
-                {balance}
+        {:then value}
+        <h2 transition:fade>
+            {$GWTbalance}
+        </h2> 
         {/await}
     {/if}  
     
     {#if (coin == "USD")} 
     <div>
         <img src={usdcoin} alt="USDC token">
-    </div>
+    </div >
         {#await getBalance("USD")}
             <p>Cargando...</p>
         {:then value} 
-                {balance}
+        <h2 transition:fade>
+            {$USDCbalance}
+        </h2>
         {/await}    
     {/if}
 </div>
@@ -87,4 +93,8 @@
         width: 100px;
     }
 
+    h2 {
+        text-align: center;
+        margin: auto;
+    }
 </style>

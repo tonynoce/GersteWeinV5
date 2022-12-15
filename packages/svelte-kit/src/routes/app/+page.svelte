@@ -4,8 +4,9 @@
 
 	import { ethers } from 'ethers';
 	import { BigNumber } from "ethers";
-	import { fade } from "svelte/transition"
+	import { fromBn } from "evm-bn";
 
+	import { fade } from "svelte/transition"
 
 	import {
 		defaultEvmStores,
@@ -22,6 +23,7 @@
 	import GersteButton from "$lib/components/GersteButton.svelte"
 	import NumberInput from '$lib/components/NumberInput.svelte'
 	import CoinInfo from "$lib/components/CoinInfo.svelte"
+	import TxHashModal from '$lib/components/TxHashModal.svelte';
 
 	
 	import { changeNetwork, handleChainChanged, addGersteToken, addUSDCtToken } from "../stores/metamask"
@@ -57,8 +59,12 @@
 	
 	let isInstalled:boolean;
 	let onboardingOn;
-	
-	$:numberCito
+
+	let txHash:any;
+	let showMe = false;
+
+	$: numberCito
+	$: txHash
 
 	// mint function => checks != 0 => checks allowance first => checks if amount >= balance 
     async function getAllowance() {
@@ -85,16 +91,46 @@
 		}
 		return true;
 	}
+
+	async function getGWTbalance() {
+		let balance = await $contracts.GersteWeinContract.balanceOf($signerAddress);
+		balance = fromBn(BigNumber.from(balance), 6);
+		balance = Number(balance).toFixed(2);
+		$GWTbalance = balance;
+	}
+
+	async function getUSDCbalance() {
+		let balance = await $contracts.USDCContract.balanceOf($signerAddress);
+		balance = fromBn(BigNumber.from(balance), 6);
+		balance = Number(balance).toFixed(2);
+		$USDCbalance = balance;
+	}
 	
 	async function mintMeSome() {
 		let amount2 = numberCito*1e6;
 		try {
-			$contracts.GersteWeinContract.mintMeSome(amount2);
+			const tx = await $contracts.GersteWeinContract.mintMeSome(amount2);
+			txHash = tx.hash;
+			console.log(txHash);
 		} catch (e) {
 			console.log(e);
+			showMe = false
+
 			return false;
 		}
 		return true;
+	}
+
+	async function swapMeSome(amount:any) {
+		try {
+			const tx = await $contracts.GersteWeinContract.swapMeSome(amount);
+			txHash = tx.hash;
+			console.log(txHash);
+		} catch (e){
+			console.log(e);
+			return false;
+		}
+		return true
 	}
 	
 	/**
@@ -107,10 +143,30 @@
 				await getAllowance();
 			}
 				if (allowanceCheck != 0) {
+					showMe = true;
+
 					await mintMeSome();
+					await $provider.waitForTransaction(txHash);
+					console.log("esperanding...")
+
+					await getGWTbalance();
+					await getUSDCbalance();
+					numberCito = 0
+					showMe = false
 				} else {
+					showMe = true;
+
 					await approveAllowance();
 					await mintMeSome();
+					await $provider.waitForTransaction(txHash);
+					console.log("esperanding...")
+
+					await getGWTbalance();
+					await getUSDCbalance();
+					numberCito = 0;
+					showMe = false;
+					txHash = undefined;
+
 				}
 				
 	  		}
@@ -121,7 +177,18 @@
 		if (numberCito != 0 && $GWTbalance >= numberCito) {
 			let amount2 = numberCito*1e6;
 		try {
-			$contracts.GersteWeinContract.swapMeSome(amount2);
+			//$contracts.GersteWeinContract.swapMeSome(amount2);
+			showMe = true;
+			allowanceCheck = false;
+			await swapMeSome(amount2);
+			await $provider.waitForTransaction(txHash);
+			console.log("esperanding...")
+
+			await getGWTbalance();
+			await getUSDCbalance();
+			numberCito = 0;
+			showMe = false;
+			txHash = undefined;
 		}  catch (e) {
 			console.log(e);
 		}
@@ -158,6 +225,8 @@
 	handleAccountsChanged();
 
 </script>
+<TxHashModal showMe={showMe} txHash={txHash} allowanceChecked={allowanceCheck}>
+</TxHashModal>
 
 {#if isInstalled == false}
 <body>
@@ -191,7 +260,7 @@
 			{numberCito}
 		</h1> -->
 
-		<div style= "text-align: center; font-size:26pt">
+		<div>
 			<input 
 					type=number
 					min="0" max="100"
@@ -220,13 +289,12 @@
 			{$signerAddress}
 		</h3>
 	</div>
-	<div
-	class="coins"
-	>
-		<CoinInfo coin={"GWT"}/>
-		<CoinInfo coin={"USD"}/>
-	</div>
-
+		<div
+		class="coins"
+		>
+			<CoinInfo coin={"GWT"}/>
+			<CoinInfo coin={"USD"}/>
+		</div>
 	<div
 	style="text-align: center; padding: 2rem">
 		<GersteButton
@@ -276,8 +344,6 @@
         box-shadow: 0px 0px 120px 10px rgba(255, 46, 238, 0.75);
 	}
 
-
-	
 	.coins{
 		display: flex;
 		margin: 3rem;
