@@ -263,9 +263,11 @@
 		text-align: center; 
 		font-size:38pt;
 		color: white;
-		background: rgba(0, 0, 0, 0);
+		background: rgba(255, 255, 255, 0.1);
 		border-color: rgba(0, 0, 0, 0);
 		width: 100%;
+		box-shadow: 0px 0px 120px 10px rgba(255, 46, 238, 0);
+		transition: box-shadow 1.5s
 	}
 
 	input:hover{
