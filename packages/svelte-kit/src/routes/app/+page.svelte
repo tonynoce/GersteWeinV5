@@ -62,30 +62,60 @@
 	let txHash:any;
 	let showMe = false;
 
+	let metamaskError: ProviderRpcError;
+	let getMetamaskError:any = undefined;
+
 	$: numberCito
 	$: txHash
+	$: getMetamaskError
+
+	/**
+     * @dev interface to handle metamask errors
+    */
+    interface ProviderRpcError extends Error {
+        message: string;
+        code: number;
+        data?: unknown;
+    }  
 
 	// mint function => checks != 0 => checks allowance first => checks if amount >= balance 
     async function getAllowance() {
 		try {
 			console.log(`${$signerAddress}, ${GERSTEWEINCONTRACT}`)
-			allowanceCheck = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT)
-			allowanceCheck = ethers.utils.formatEther(allowanceCheck);
+			//allowanceCheck = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT)
+			//allowanceCheck = ethers.utils.formatEther(allowanceCheck);
+			//$allowance = allowanceCheck;
 			
-			$allowance = allowanceCheck;
+			$allowance = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT);
+			console.log(`allowance es ${$allowance}`)
+
+			if ($allowance == 0) {
+				allowanceCheck = false;
+			}
 			
 			return allowanceCheck
-		} catch (e) {
-			console.log(e);
+		} catch (e:any) {
+			metamaskError = e
+            //console.log("MESSAGE: ", metamaskError.message)
+            console.log("CODE: ",metamaskError.code);
+			getMetamaskError = metamaskError.code;
+            //console.log("DATA: ",metamaskError.data)
 		}
 	}
 		
 	async function approveAllowance() {
 		let allowanceToApprove = ethers.utils.parseEther('999999');
 		try {
-			$contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowanceToApprove);
-		} catch (e) {
-			console.log(e);
+			const tx = $contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowanceToApprove);
+			txHash = tx.hash;
+			console.log(txHash);
+		} catch (e:any) {
+			//console.log(e);
+			metamaskError = e
+            //console.log("MESSAGE: ", metamaskError.message)
+            console.log("CODE: ",metamaskError.code);
+			getMetamaskError = metamaskError.code;
+            //console.log("DATA: ",metamaskError.data)
 			return false;
 		}
 		return true;
@@ -111,10 +141,14 @@
 			const tx = await $contracts.GersteWeinContract.mintMeSome(amount2);
 			txHash = tx.hash;
 			console.log(txHash);
-		} catch (e) {
-			console.log(e);
-			showMe = false
-
+		} catch (e:any) {
+			//console.log(e);
+			//showMe = false
+			metamaskError = e
+            //console.log("MESSAGE: ", metamaskError.message)
+            console.log("CODE: ",metamaskError.code);
+			getMetamaskError = metamaskError.code;
+            //console.log("DATA: ",metamaskError.data)
 			return false;
 		}
 		return true;
@@ -125,8 +159,10 @@
 			const tx = await $contracts.GersteWeinContract.swapMeSome(amount);
 			txHash = tx.hash;
 			console.log(txHash);
-		} catch (e){
-			console.log(e);
+		} catch (e:any){
+			metamaskError = e;
+            console.log("CODE: ",metamaskError.code);
+			getMetamaskError = metamaskError.code;
 			return false;
 		}
 		return true
@@ -188,8 +224,11 @@
 			numberCito = 0;
 			showMe = false;
 			txHash = undefined;
-		}  catch (e) {
+		}  catch (e:any) {
 			console.log(e);
+			metamaskError = e
+            console.log("CODE: ",metamaskError.code);
+			getMetamaskError = metamaskError.code;
 		}
 	}
 	} 
@@ -224,9 +263,10 @@
 	handleAccountsChanged();
 
 </script>
-<TxHashModal {showMe} {txHash} {allowanceCheck}>
+<TxHashModal {showMe} {txHash} {allowanceCheck} {getMetamaskError}>
 </TxHashModal>
 
+<!-- Check if metamask is available -->
 {#if isInstalled == false}
 <body>
 	<div>
@@ -242,6 +282,7 @@
 
 	{:else}
 
+	<!-- Main app body -->
 {#key $signerAddress}
 
 <body>	
@@ -288,6 +329,7 @@
 			{$signerAddress}
 		</h3>
 	</div>
+	<!-- Coins display -->
 		<div
 		class="coins"
 		>
@@ -303,16 +345,17 @@
 		</GersteButton>
 	</div>
 	{:else}
-			<div style="text-align: center"
-			>
-				<h2> 
-					Conectate a la red Mumbai:
-				</h2>
-				<GersteButton
-					on:click={() => {changeNetwork()}}
-					>Agregar red Mumbai
-				</GersteButton>
-							</div>
+	<!-- Change network to Mumbai -->
+		<div style="text-align: center"
+		>
+			<h2> 
+				Conectate a la red Mumbai:
+			</h2>
+			<GersteButton
+				on:click={() => {changeNetwork()}}
+				>Agregar red Mumbai
+			</GersteButton>
+						</div>
 	{/if}
 </body>
 

@@ -34,6 +34,15 @@
 
 	$: txHash
 
+    /**
+     * @dev interface to handle metamask errors
+    */
+    interface ProviderRpcError extends Error {
+        message: string;
+        code: number;
+        data?: unknown;
+    }   
+
     async function getMeFaucetUSD() {
         try {
             showMe = true;
@@ -42,8 +51,13 @@
             txHash = tx.hash;
             await $provider.waitForTransaction(txHash)
             showMe = false;
-        } catch (e) {
-            console.log(e)
+        } catch (e:any) {
+            //console.log(e)
+            //let metamaskError = Object.keys(e)
+            let metamaskError: ProviderRpcError = e
+            console.log(metamaskError.message)
+            console.log(metamaskError.code)
+            console.log(metamaskError.data)
             showMe = false;
         }
     }

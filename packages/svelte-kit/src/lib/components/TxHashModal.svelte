@@ -4,6 +4,9 @@
     export let txHash:string;
     export let allowanceCheck:boolean;
     export let showMe = false;
+	export let getMetamaskError:any = undefined;
+
+    $: showMe;
 
     export function hide() {
         showMe = false
@@ -14,12 +17,22 @@
     <main transition:fly="{{ x: -200, duration: 1500 }}">
         <div class="wrapper">
             <div class = "modal">
-                {#if (allowanceCheck != false)}
-                <p>
-                    &#10004; Contrato Aprobado
-                </p>
-                {/if}
-
+                <!-- Checks allowance -->
+                {#key allowanceCheck}
+                    {#if (allowanceCheck == false)}
+                        <p>
+                            &#10004; Contrato Aprobado
+                        </p>
+                    {/if}
+                
+                    {#if (allowanceCheck == true)}
+                        <p>
+                            &#10004; Aprobando el contrato...
+                        </p>
+                    {/if}
+                {/key}
+                
+                <!-- Print txHash -->
                 {#key txHash}    
                 {#if (txHash === undefined)}
                     <p>Mandando...</p>
@@ -32,8 +45,19 @@
                         >Mirá la transacción en etherscan</a>
                     {/if}
                 {/key}
+
+                <!-- Print metamask error -->
+                {#key getMetamaskError}
+                    {#if (getMetamaskError != undefined)}
+                        <p>
+                            {getMetamaskError}
+                        </p>
+                    {/if}
+                {/key}
                 
+                <!-- SLOT -->
                 <slot/>
+                <!-- Close button -->
                 <div class="buttonWrapper"> 
                     <button
                     on:click={() => showMe = false}
