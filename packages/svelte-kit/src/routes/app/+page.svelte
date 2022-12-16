@@ -303,7 +303,6 @@
 
 <body>	
 	<h1>Compra - Venta</h1>
-	{$showMe}
     {#if !$connected}
     	<p  style= "text-align: center">Conectando...</p>
 	{/if}
