@@ -96,7 +96,7 @@
 
     img:hover {
         width: 110px;
-        box-shadow: 0px 0px 80px 10px rgba(93, 186, 248, 0.699);
+        box-shadow: 0px 0px 80px 10px rgba(34, 152, 231, 0.788);
     }
 
     h2 {

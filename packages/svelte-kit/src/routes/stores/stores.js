@@ -7,6 +7,7 @@ export let allowance = writable();
 
 export let GWTbalance = writable();
 export let USDCbalance = writable();
+export let showMe = writable();
 
 export const MUMBAINETWORK = {
     chainId: `0x${Number(80001).toString(16)}`,

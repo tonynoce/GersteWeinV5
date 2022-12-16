@@ -1,37 +1,43 @@
 <script lang="ts">
-    import {fly} from "svelte/transition"
+    import { fly } from "svelte/transition"
+
+    import {showMe} from "../../routes/stores/stores"
 
     export let txHash:string;
     export let allowanceCheck:boolean;
-    export let showMe = false;
+    //export let showMe:boolean;
 	export let getMetamaskError:any = undefined;
 
-    $: showMe;
+    /* $: showMe; */
+    $: allowanceCheck;
 
     export function hide() {
-        showMe = false
+        $showMe = false;
+        getMetamaskError = undefined;
+    }
+    export function show() {
+        $showMe = true;
     }
 </script>
 
-{#if (showMe === true)}
+{#if ($showMe === true)}
     <main transition:fly="{{ x: -200, duration: 1500 }}">
         <div class="wrapper">
             <div class = "modal">
                 <!-- Checks allowance -->
                 {#key allowanceCheck}
-                    {#if (allowanceCheck == false)}
+                    {#if (allowanceCheck == true)}
                         <p>
                             &#10004; Contrato Aprobado
                         </p>
                     {/if}
                 
-                    {#if (allowanceCheck == true)}
+                    {#if (allowanceCheck == false)}
                         <p>
                             &#10004; Aprobando el contrato...
                         </p>
                     {/if}
                 {/key}
-                
                 <!-- Print txHash -->
                 {#key txHash}    
                 {#if (txHash === undefined)}
@@ -60,7 +66,7 @@
                 <!-- Close button -->
                 <div class="buttonWrapper"> 
                     <button
-                    on:click={() => showMe = false}
+                    on:click={() => hide()}
                     >Cerrame</button>
                 </div>
             </div>
@@ -76,8 +82,8 @@
         position: fixed;
         top: 25vh;
         left: 25vw;
-        width: 45vw;
-        max-width: 50%;
+        width: 25vw;
+        max-width: auto;
         min-height: 15vh;
         border-radius: 5px;
         box-shadow: 0px 0px 120px 10px rgba(2, 115, 207, 0.75);
@@ -90,7 +96,7 @@
     }
 
     .buttonWrapper {
-        margin-top: 20%;
+        margin-top: 5%;
         text-align: right;
     }
 

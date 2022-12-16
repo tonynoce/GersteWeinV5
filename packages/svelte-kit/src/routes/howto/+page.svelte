@@ -72,18 +72,18 @@
     <h1>Como funciona?</h1>
 
     <div class="text-wrapper">
-        <p>
+        <li>
             El primer paso es adquirir Matic para poder interactuar con la blockchain.
-        </p>
-        <p>
+        </li>
+        <li>
             El segundo paso es conseguir USDC en un swap.
-        </p>
-        <p>
+        </li>
+        <li>
             El tercer paso es cambiar USDC por GWT en este sitio.
-        </p>
-        <p>
+        </li>
+        <li>
             El cuarto paso es cambiar ese GWT por una pinta de su gusto en Gerstewein !            
-        </p>
+        </li>
     </div>
 
     <div class="text-wrapper">
@@ -96,6 +96,19 @@
         >
         Conseguir 100USD
         </GersteButton>
+    </div>
+    <div class="text-wrapper">
+        <h2>Matic Faucet</h2>
+        <p>
+            Si necesitás matic podés pedir en la faucet oficial
+        </p>
+    </div>
+    <div>
+        <a href="https://faucet.polygon.technology/" target="_blank">
+            <GersteButton>
+                Conseguir Matic
+            </GersteButton>
+        </a>
     </div>
 </body>
 

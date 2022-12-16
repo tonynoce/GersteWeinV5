@@ -28,10 +28,14 @@
 	import { changeNetwork, handleChainChanged, addGersteToken, addUSDCtToken } from "../stores/metamask"
 	import { getWindowEthereum } from "../stores/metamask"
 	
+	import {showMe} from "../../routes/stores/stores"
 	import { GERSTEWEINCONTRACT, USDCONTRACT, MUMBAINETWORK, USDCbalance, GWTbalance} from "../stores/stores"
 	import { GWTabi } from '$lib/ABI/GWTabi';
 	import { USDCabi } from '$lib/ABI/USDCabi';
 	import { allowance } from "../stores/stores"
+
+	import beer from "$lib/images/Beers/Beer_2.png"
+	import beerEmpty from "$lib/images/Beers/Beer_2_empty.png"
 
 	// instantiate GWT contract
 	let gwtcontract = new ethers.Contract(GERSTEWEINCONTRACT, GWTabi, $signer);
@@ -60,7 +64,6 @@
 	let onboardingOn;
 
 	let txHash:any;
-	let showMe = false;
 
 	let metamaskError: ProviderRpcError;
 	let getMetamaskError:any = undefined;
@@ -69,6 +72,17 @@
 	$: txHash
 	$: getMetamaskError
 
+	$:{
+		if (numberCito == 10) {
+			alert('Ojo con el hígado !')
+		}
+	}
+
+	$:{
+		if (numberCito == 33) {
+			alert('Todo sucede cómo debe suceder.')
+		}
+	}
 	/**
      * @dev interface to handle metamask errors
     */
@@ -91,6 +105,8 @@
 
 			if ($allowance == 0) {
 				allowanceCheck = false;
+			} else {
+				allowanceCheck = true;
 			}
 			
 			return allowanceCheck
@@ -104,7 +120,7 @@
 	}
 		
 	async function approveAllowance() {
-		let allowanceToApprove = ethers.utils.parseEther('999999');
+		let allowanceToApprove = ethers.utils.parseEther('999999999');
 		try {
 			const tx = $contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowanceToApprove);
 			txHash = tx.hash;
@@ -143,7 +159,7 @@
 			console.log(txHash);
 		} catch (e:any) {
 			//console.log(e);
-			//showMe = false
+			//$showMe = false
 			metamaskError = e
             //console.log("MESSAGE: ", metamaskError.message)
             console.log("CODE: ",metamaskError.code);
@@ -178,7 +194,7 @@
 				await getAllowance();
 			}
 				if (allowanceCheck != 0) {
-					showMe = true;
+					$showMe = true;
 
 					await mintMeSome();
 					await $provider.waitForTransaction(txHash);
@@ -187,10 +203,10 @@
 					await getGWTbalance();
 					await getUSDCbalance();
 					numberCito = 0
-					showMe = false
+					$showMe = false
 					txHash = undefined;
 				} else {
-					showMe = true;
+					$showMe = true;
 
 					await approveAllowance();
 					await mintMeSome();
@@ -200,7 +216,7 @@
 					await getGWTbalance();
 					await getUSDCbalance();
 					numberCito = 0;
-					showMe = false;
+					$showMe = false;
 					txHash = undefined;
 				}
 				
@@ -213,8 +229,8 @@
 			let amount2 = numberCito*1e6;
 		try {
 			//$contracts.GersteWeinContract.swapMeSome(amount2);
-			showMe = true;
-			allowanceCheck = false;
+			$showMe = true;
+			//allowanceCheck = false;
 			await swapMeSome(amount2);
 			await $provider.waitForTransaction(txHash);
 			console.log("esperanding...")
@@ -222,7 +238,7 @@
 			await getGWTbalance();
 			await getUSDCbalance();
 			numberCito = 0;
-			showMe = false;
+			$showMe = false;
 			txHash = undefined;
 		}  catch (e:any) {
 			console.log(e);
@@ -263,7 +279,7 @@
 	handleAccountsChanged();
 
 </script>
-<TxHashModal {showMe} {txHash} {allowanceCheck} {getMetamaskError}>
+<TxHashModal {txHash} {allowanceCheck} {getMetamaskError}>
 </TxHashModal>
 
 <!-- Check if metamask is available -->
@@ -287,7 +303,7 @@
 
 <body>	
 	<h1>Compra - Venta</h1>
-	
+	{$showMe}
     {#if !$connected}
     	<p  style= "text-align: center">Conectando...</p>
 	{/if}
@@ -299,7 +315,19 @@
 		>
 			{numberCito}
 		</h1> -->
+		<!-- Beer mugs -->
+		<div class="beerWrapper" >
+		{#if (numberCito == 0)}
+			<img src={beerEmpty} alt="Vaso de birra vacio"
+			transition:fade="{{delay: 0,duration: 500}}">
 
+		{/if}
+			{#each Array(numberCito) as beers }
+				<img src={beer} alt="Birra número {numberCito}" 
+				transition:fade="{{delay: 0,duration: 500}}">
+			{/each}
+			<!-- <img src={beer} alt="Beer {numberCito}"> -->
+		</div>
 		<div>
 			<input 
 					type=number
@@ -366,6 +394,21 @@
 
  	div input {
 		margin: 15px;
+	}
+	
+	.beerWrapper {
+		max-width: 50vw;
+	}
+	
+	.beerWrapper img {
+		width: 3em;
+		padding: 3px;
+		transition: all 0.5s;
+	}
+
+	.beerWrapper img:hover {
+		width: 4em;
+		padding: 12px;
 	}
 
 	input {

@@ -11,11 +11,12 @@
 	<img src="GersteWeinLocal_1000px.jpg" alt="GersteWein al atardecer">
 	<div class="text-wrapper">
 		<p>Gerste Wein es un almacén de bebidas ubicado en Berazategui.</p>	
-		<p>Este token es un contrato que ejecuta una conversión de USDC a GWT Si es la primera vez que lo
-			utiliza, va a tener que aprobar el contrato para poder comprar / vender.
+		<p>La idea de este token surgio luego de varias charlas y con la propuesta de
+			<br/>
+			acercar el mundo crypto a la gente y las cervezas.
 		</p>
-		<p>La seguridad del mismo está forzada por la inmutabilidad del código,<br/>
-			que se encuentra alojado en la red Matic.</p>
+		<p>Utilice bajo su responsabilidad, cómo su bebida.
+		</p>
 		</div>
 </body>
 		
