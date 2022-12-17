@@ -6,7 +6,16 @@
     export let txHash:string;
     export let allowanceCheck:boolean;
     //export let showMe:boolean;
-	export let getMetamaskError:any = undefined;
+	export let getMetamaskError:ProviderRpcError = undefined;
+
+    /**
+     * @dev interface to handle metamask errors
+    */
+    interface ProviderRpcError extends Error {
+        message: string;
+        code: number;
+        data?: unknown;
+    }  
 
     /* $: showMe; */
     $: allowanceCheck;
@@ -56,7 +65,11 @@
                 {#key getMetamaskError}
                     {#if (getMetamaskError != undefined)}
                         <p>
-                            {getMetamaskError}
+                            <!-- {getMetamaskError} -->
+                            {getMetamaskError.code}
+                        </p>
+                        <p>
+                            {getMetamaskError.message}
                         </p>
                     {/if}
                 {/key}

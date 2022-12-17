@@ -114,7 +114,7 @@
 			metamaskError = e
             //console.log("MESSAGE: ", metamaskError.message)
             console.log("CODE: ",metamaskError.code);
-			getMetamaskError = metamaskError.code;
+			getMetamaskError = metamaskError;
             //console.log("DATA: ",metamaskError.data)
 		}
 	}
@@ -122,15 +122,14 @@
 	async function approveAllowance() {
 		let allowanceToApprove = ethers.utils.parseEther('999999999999');
 		try {
-			const tx = $contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowanceToApprove);
+			const tx = await $contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowanceToApprove);
 			txHash = tx.hash;
-
 			//txHash = undefined;
 			console.log(txHash);
 		} catch (e:any) {
 			metamaskError = e
             console.log("CODE: ",metamaskError.code);
-			getMetamaskError = metamaskError.code;
+			getMetamaskError = metamaskError;
             //console.log("DATA: ",metamaskError.data)
 			return false;
 		}
@@ -163,7 +162,7 @@
 			metamaskError = e
             //console.log("MESSAGE: ", metamaskError.message)
             console.log("CODE: ",metamaskError.code);
-			getMetamaskError = metamaskError.code;
+			getMetamaskError = metamaskError;
             //console.log("DATA: ",metamaskError.data)
 			return false;
 		}
@@ -178,7 +177,7 @@
 		} catch (e:any){
 			metamaskError = e;
             console.log("CODE: ",metamaskError.code);
-			getMetamaskError = metamaskError.code;
+			getMetamaskError = metamaskError;
 			return false;
 		}
 		return true
@@ -245,7 +244,7 @@
 			console.log(e);
 			metamaskError = e
             console.log("CODE: ",metamaskError.code);
-			getMetamaskError = metamaskError.code;
+			getMetamaskError = metamaskError;
 		}
 	}
 	} 
