@@ -38,7 +38,7 @@
     
     .modal {
         border-radius: 5px;
-        max-width: 80vw;
+        max-width: 500px;
         padding: 5%;
         margin: 15% auto;
         background-image: radial-gradient(farthest-corner at 20px 20px,rgba(31, 127, 172, 0.7) 25%, rgba(135, 20, 189, 0.25) 80%);
