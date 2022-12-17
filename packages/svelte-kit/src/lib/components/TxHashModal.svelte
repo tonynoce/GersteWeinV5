@@ -41,7 +41,7 @@
                 <!-- Print txHash -->
                 {#key txHash}    
                 {#if (txHash === undefined)}
-                    <p>Mandando...</p>
+                    <p>Mandando transacción...</p>
                     {:else}
                     <p>&#10004; Transacción mandada
                     </p>
@@ -76,6 +76,26 @@
 
 
 <style>
+
+    .wrapper{
+        background-color: rgb(7, 25, 63, 0.65);
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    
+    .modal {
+        border-radius: 5px;
+        max-width: 80vw;
+        padding: 5%;
+        margin: 15% auto;
+        background-image: radial-gradient(farthest-corner at 20px 20px,rgba(31, 127, 172, 0.7) 25%, rgba(135, 20, 189, 0.25) 80%);
+        background-color: rgb(10, 48, 73, 1);
+    }
+
+    /** @dev this was experimentation and a poor choice of ccs
     .wrapper{
         background-color: rgb(10, 48, 73);
         background-image: radial-gradient(farthest-corner at 20px 20px,rgba(31, 127, 172, 0.7) 25%, rgba(135, 20, 189, 0.25) 80%);
@@ -94,10 +114,12 @@
         padding: 1rem;
         margin: auto;
     }
+    */
 
     .buttonWrapper {
         margin-top: 5%;
         text-align: right;
     }
+
 
 </style>

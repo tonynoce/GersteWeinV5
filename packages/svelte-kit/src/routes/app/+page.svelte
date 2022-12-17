@@ -120,15 +120,15 @@
 	}
 		
 	async function approveAllowance() {
-		let allowanceToApprove = ethers.utils.parseEther('999999999');
+		let allowanceToApprove = ethers.utils.parseEther('999999999999');
 		try {
 			const tx = $contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowanceToApprove);
 			txHash = tx.hash;
+
+			//txHash = undefined;
 			console.log(txHash);
 		} catch (e:any) {
-			//console.log(e);
 			metamaskError = e
-            //console.log("MESSAGE: ", metamaskError.message)
             console.log("CODE: ",metamaskError.code);
 			getMetamaskError = metamaskError.code;
             //console.log("DATA: ",metamaskError.data)
@@ -209,6 +209,7 @@
 					$showMe = true;
 
 					await approveAllowance();
+					await $provider.waitForTransaction(txHash);
 					await mintMeSome();
 					await $provider.waitForTransaction(txHash);
 					console.log("esperanding...")
@@ -321,10 +322,17 @@
 			transition:fade="{{delay: 0,duration: 500}}">
 
 		{/if}
-			{#each Array(numberCito) as beers }
-				<img src={beer} alt="Birra número {numberCito}" 
-				transition:fade="{{delay: 0,duration: 500}}">
-			{/each}
+			{#if (numberCito < 10)}	
+				{#each Array(numberCito) as beers }
+					<img src={beer} alt="Birra número {numberCito}" 
+					transition:fade="{{delay: 0,duration: 500}}">
+				{/each}
+			{:else}
+					{#each Array(10) as beers }
+						<img src={beer} alt="Birra número {numberCito}" 
+						transition:fade="{{delay: 0,duration: 500}}">
+				{/each}
+			{/if}
 			<!-- <img src={beer} alt="Beer {numberCito}"> -->
 		</div>
 		<div>
@@ -396,10 +404,15 @@
 	}
 	
 	.beerWrapper {
-		max-width: 50vw;
+		display: flex;
+		justify-content: center;
+		width: 90%;
+		margin: auto 15% auto;
 	}
 	
 	.beerWrapper img {
+		align-items: center;
+		align-self: center;
 		width: 3em;
 		padding: 3px;
 		transition: all 0.5s;

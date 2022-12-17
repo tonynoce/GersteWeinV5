@@ -28,22 +28,21 @@
 
 <style>
     .wrapper{
-        background-color: rgb(10, 48, 73);
-        background-image: radial-gradient(farthest-corner at 20px 20px,rgba(31, 127, 172, 0.7) 25%, rgba(135, 20, 189, 0.25) 80%);
+        background-color: rgba(14, 31, 43, 0.75);
         position: fixed;
-        top: 25vh;
-        left: 25vw;
-        width: 45vw;
-        max-width: auto;
-        min-height: 15vh;
-        border-radius: 5px;
-        box-shadow: 0px 0px 120px 10px rgba(2, 115, 207, 0.75);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
     }
     
     .modal {
+        border-radius: 5px;
         max-width: 80vw;
-        padding: 1rem;
-        margin: auto;
+        padding: 5%;
+        margin: 15% auto;
+        background-image: radial-gradient(farthest-corner at 20px 20px,rgba(31, 127, 172, 0.7) 25%, rgba(135, 20, 189, 0.25) 80%);
+        background-color: rgb(10, 48, 73, 1);
     }
 
     .buttonWrapper {
