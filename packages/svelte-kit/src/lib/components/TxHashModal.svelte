@@ -49,7 +49,7 @@
                 {/key}
                 <!-- Print txHash -->
                 {#key txHash}    
-                {#if (txHash === undefined)}
+                {#if (txHash == undefined)}
                     <p>Mandando transacción...</p>
                     {:else}
                     <p>&#10004; Transacción mandada

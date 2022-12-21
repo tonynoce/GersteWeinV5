@@ -96,10 +96,7 @@
     async function getAllowance() {
 		try {
 			console.log(`${$signerAddress}, ${GERSTEWEINCONTRACT}`)
-			//allowanceCheck = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT)
-			//allowanceCheck = ethers.utils.formatEther(allowanceCheck);
-			//$allowance = allowanceCheck;
-			
+	
 			$allowance = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT);
 			console.log(`allowance es ${$allowance}`)
 
@@ -124,8 +121,10 @@
 		try {
 			const tx = await $contracts.USDCContract.approve(GERSTEWEINCONTRACT, allowanceToApprove);
 			txHash = tx.hash;
-			//txHash = undefined;
+			await $provider.waitForTransaction(txHash);
 			console.log(txHash);
+			// recheck allowance after
+			await getAllowance()
 		} catch (e:any) {
 			metamaskError = e
             console.log("CODE: ",metamaskError.code);
@@ -169,9 +168,12 @@
 		return true;
 	}
 
-	async function swapMeSome(amount:any) {
+	async function swapMeSome() {
+		let amount2 = numberCito*1e6;
+		console.log(amount2)
 		try {
-			const tx = await $contracts.GersteWeinContract.swapMeSome(amount);
+			const tx = await $contracts.GersteWeinContract.swapMeSome(amount2);
+			//console.log(tx)
 			txHash = tx.hash;
 			console.log(txHash);
 		} catch (e:any){
@@ -226,27 +228,26 @@
 	// swap function => checks != 0 => checks if amount >= balance
 	async function sellGWT() {
 		if (numberCito != 0 && $GWTbalance >= numberCito) {
-			let amount2 = numberCito*1e6;
-		try {
-			//$contracts.GersteWeinContract.swapMeSome(amount2);
-			$showMe = true;
-			//allowanceCheck = false;
-			await swapMeSome(amount2);
-			await $provider.waitForTransaction(txHash);
-			console.log("esperanding...")
+			try {
+				//$contracts.GersteWeinContract.swapMeSome(amount2);
+				$showMe = true;
+				//allowanceCheck = false;
+				await swapMeSome();
+				await $provider.waitForTransaction(txHash);
+				console.log("esperanding...")
 
-			await getGWTbalance();
-			await getUSDCbalance();
-			numberCito = 0;
-			$showMe = false;
-			txHash = undefined;
-		}  catch (e:any) {
-			console.log(e);
-			metamaskError = e
-            console.log("CODE: ",metamaskError.code);
-			getMetamaskError = metamaskError;
+				await getGWTbalance();
+				await getUSDCbalance();
+				numberCito = 0;
+				$showMe = false;
+				txHash = undefined;
+			}  catch (e:any) {
+				console.log(e);
+				metamaskError = e
+				console.log("CODE: ",metamaskError.code);
+				getMetamaskError = metamaskError;
+			}
 		}
-	}
 	} 
 	
 	// check if onboarding needs to be done
