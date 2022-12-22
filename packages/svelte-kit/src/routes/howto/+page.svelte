@@ -44,8 +44,8 @@
     }   
 
     async function getMeFaucetUSD() {
+        showMe = true;
         try {
-            showMe = true;
             let tx = await $contracts.faucetUSDCcontract.mintTokens("100");
             
             txHash = tx.hash;
@@ -69,12 +69,11 @@
 </TxHashModal>
 
 <body>
-    <h1>Como funciona?</h1>
-    
-    
+    <h1>Como funciona?</h1>    
     <div class="text-wrapper">
         <!-- AI video... -->
-        <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="https://share.synthesia.io/embeds/videos/d06e2042-0fc5-46ac-92dc-4ca2f4eff080" loading="lazy" title="Synthesia video player - Your AI video" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>
+        <h3>Tito te explica: </h3>
+        <div style="position: relative; overflow: hidden; padding-top: 56.25%; margin-bottom: 15px;"><iframe src="https://share.synthesia.io/embeds/videos/d06e2042-0fc5-46ac-92dc-4ca2f4eff080" loading="lazy" title="Synthesia video player - Your AI video" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>
         <li>
             El primer paso es adquirir Matic para poder interactuar con la blockchain.
         </li>

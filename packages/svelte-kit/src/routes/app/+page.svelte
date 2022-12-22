@@ -65,12 +65,19 @@
 
 	let txHash:any;
 
+	let weBuying:number = 0;
+	let weSelling:number = 0;
+
 	let metamaskError: ProviderRpcError;
+	let metamaskMessage:ProviderMessage;
 	let getMetamaskError:any = undefined;
 
 	$: numberCito
 	$: txHash
 	$: getMetamaskError
+	$: weBuying
+	$: weSelling
+
 
 	$:{
 		if (numberCito == 10) {
@@ -83,6 +90,14 @@
 			alert('Todo sucede cómo debe suceder.')
 		}
 	}
+	/**
+     * @dev interface to handle metamask messages
+    */
+	interface ProviderMessage {
+	  	type: string;
+  		data: unknown;
+	}
+
 	/**
      * @dev interface to handle metamask errors
     */
@@ -151,26 +166,61 @@
 	
 	async function mintMeSome() {
 		let amount2 = numberCito*1e6;
-		try {
-			const tx = await $contracts.GersteWeinContract.mintMeSome(amount2);
-			txHash = tx.hash;
-			console.log(txHash);
-		} catch (e:any) {
-			//console.log(e);
-			//$showMe = false
-			metamaskError = e
-            //console.log("MESSAGE: ", metamaskError.message)
-            console.log("CODE: ",metamaskError.code);
-			getMetamaskError = metamaskError;
-            //console.log("DATA: ",metamaskError.data)
-			return false;
+		const tx = await $contracts.GersteWeinContract.mintMeSome(amount2);
+		txHash = tx.hash;
+		console.log(txHash);
+		return true;
+	}
+
+	function clearModal() {
+		numberCito = 0;
+		$showMe = false;
+		txHash = undefined;
+	}
+	/**
+	 * @notice this is a backup just in case
+	 async function mintMeSome() {
+		 let amount2 = numberCito*1e6;
+		 try {
+			 const tx = await $contracts.GersteWeinContract.mintMeSome(amount2);
+			 txHash = tx.hash;
+			 console.log(txHash);
+			} catch (e:any) {
+				//console.log(e);
+				//$showMe = false
+				metamaskError = e
+				//console.log("MESSAGE: ", metamaskError.message)
+				console.log("CODE: ",metamaskError.code);
+				getMetamaskError = metamaskError;
+				//console.log("DATA: ",metamaskError.data)
+				return false;
 		}
 		return true;
+	}
+	*/
+
+	async function buyingFunction() {
+		$showMe = true;
+		await mintMeSome();
+		await $provider.waitForTransaction(txHash);
+		console.log("esperanding...")
+
+		await getGWTbalance();
+		await getUSDCbalance();
+		clearModal()
 	}
 
 	async function swapMeSome() {
 		let amount2 = numberCito*1e6;
-		console.log(amount2)
+		const tx = await $contracts.GersteWeinContract.swapMeSome(amount2);
+		txHash = tx.hash;
+		console.log(txHash);
+		return true
+	}
+	/** 
+	 * @notice this is a backup just in case
+	async function swapMeSome() {
+		let amount2 = numberCito*1e6;
 		try {
 			const tx = await $contracts.GersteWeinContract.swapMeSome(amount2);
 			//console.log(tx)
@@ -184,6 +234,18 @@
 		}
 		return true
 	}
+	*/
+
+	async function sellFunction(){
+		$showMe = true;
+		//allowanceCheck = false;
+		await swapMeSome();
+		await $provider.waitForTransaction(txHash);
+		console.log("esperanding...")
+		await getGWTbalance();
+		await getUSDCbalance();
+		clearModal();
+	}
 	
 	/**
 	 * @dev checks if the input value is different from zero
@@ -191,35 +253,39 @@
 	*/
 	async function buyGWT() {
 		if (numberCito != 0 && $USDCbalance >= numberCito) {
+			weBuying = 1;
 			if (allowanceCheck == undefined) {
 				await getAllowance();
 			}
 				if (allowanceCheck != 0) {
-					$showMe = true;
-
-					await mintMeSome();
-					await $provider.waitForTransaction(txHash);
-					console.log("esperanding...")
-
-					await getGWTbalance();
-					await getUSDCbalance();
-					numberCito = 0
-					$showMe = false
-					txHash = undefined;
+					try {
+							buyingFunction()
+							weBuying = 0;
+						} catch (e:any) {
+							console.log(e);
+							metamaskError = e
+							console.log("CODE: ",metamaskError.code);
+						}
 				} else {
 					$showMe = true;
-
-					await approveAllowance();
-					await $provider.waitForTransaction(txHash);
-					await mintMeSome();
-					await $provider.waitForTransaction(txHash);
-					console.log("esperanding...")
-
-					await getGWTbalance();
-					await getUSDCbalance();
-					numberCito = 0;
-					$showMe = false;
-					txHash = undefined;
+					try {				
+						await approveAllowance();
+						await $provider.waitForTransaction(txHash);
+						await mintMeSome();
+						await $provider.waitForTransaction(txHash);
+						console.log("esperanding...")
+	
+						await getGWTbalance();
+						await getUSDCbalance();
+						numberCito = 0;
+						$showMe = false;
+						txHash = undefined;
+						weBuying = 0;
+					} catch (e:any) {
+						console.log(e);
+						metamaskError = e
+						console.log("CODE: ",metamaskError.code);
+					}
 				}
 				
 	  		}
@@ -228,24 +294,17 @@
 	// swap function => checks != 0 => checks if amount >= balance
 	async function sellGWT() {
 		if (numberCito != 0 && $GWTbalance >= numberCito) {
+			weSelling = 1;
 			try {
-				//$contracts.GersteWeinContract.swapMeSome(amount2);
-				$showMe = true;
-				//allowanceCheck = false;
-				await swapMeSome();
-				await $provider.waitForTransaction(txHash);
-				console.log("esperanding...")
-
-				await getGWTbalance();
-				await getUSDCbalance();
-				numberCito = 0;
-				$showMe = false;
-				txHash = undefined;
+				sellFunction();
+				weSelling = 0;
 			}  catch (e:any) {
 				console.log(e);
 				metamaskError = e
 				console.log("CODE: ",metamaskError.code);
+
 				getMetamaskError = metamaskError;
+				weSelling = 0;
 			}
 		}
 	} 
@@ -269,6 +328,7 @@
         // Handle the new accounts, or lack thereof.
         // "accounts" will always be an array, but it can be empty.
 		allowanceCheck = undefined;
+		clearModal()
         //console.log("hubo un cambio de usuario: ", accounts)
         //window.location.reload();
         }); 

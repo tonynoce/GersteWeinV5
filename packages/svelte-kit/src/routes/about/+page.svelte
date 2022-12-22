@@ -3,11 +3,11 @@
 	<meta name="description" content="About this dApp" />
 </svelte:head>
 
-<div class="text-column">
-	<h1>Acerca de Gerste Wein</h1>
-</div>
 
 <body>
+	<div class="text-column">
+		<h1>Acerca de Gerste Wein</h1>
+	</div>
 	<img src="GersteWeinLocal_1000px.jpg" alt="GersteWein al atardecer">
 	<div class="text-wrapper">
 		<p>Gerste Wein es un almacén de bebidas ubicado en Berazategui.</p>	
