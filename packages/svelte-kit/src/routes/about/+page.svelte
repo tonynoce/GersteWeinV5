@@ -8,11 +8,17 @@
 	<div class="text-column">
 		<h1>Acerca de Gerste Wein</h1>
 	</div>
-	<img src="GersteWeinLocal_1000px.jpg" alt="GersteWein al atardecer">
+	<!-- 
+		<img src="GersteWeinLocal_1000px.jpg" alt="GersteWein al atardecer">
+	-->
+	<picture>
+		<source media="(max-width: 600px)" srcset="GersteWeinLocal_600px.jpg" />
+		<source media="(min-width: 999px)" srcset="GersteWeinLocal_1000px.jpg" />
+		<img src="GersteWeinLocal_1000px.jpg" alt="GersteWein al atardecer">
+	</picture>
 	<div class="text-wrapper">
 		<p>Gerste Wein es un almacén de bebidas ubicado en Berazategui.</p>	
 		<p>La idea de este token surgio luego de varias charlas y con la propuesta de
-			<br/>
 			acercar el mundo crypto a la gente y las cervezas.
 		</p>
 		<p>Utilice bajo su responsabilidad, cómo su bebida.
@@ -27,8 +33,8 @@
 		margin-right: 10vw;
 	} */
 
-	img {
-		width: 50%;
+	picture {
+		margin: auto;
 	}
 
 	.text-wrapper {

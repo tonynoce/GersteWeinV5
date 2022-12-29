@@ -110,10 +110,10 @@
 	// mint function => checks != 0 => checks allowance first => checks if amount >= balance 
     async function getAllowance() {
 		try {
-			console.log(`${$signerAddress}, ${GERSTEWEINCONTRACT}`)
+			//console.log(`${$signerAddress}, ${GERSTEWEINCONTRACT}`)
 	
 			$allowance = await $contracts.USDCContract.allowance($signerAddress, GERSTEWEINCONTRACT);
-			console.log(`allowance es ${$allowance}`)
+			//console.log(`allowance es ${$allowance}`)
 
 			if ($allowance == 0) {
 				allowanceCheck = false;
@@ -174,8 +174,10 @@
 
 	function clearModal() {
 		numberCito = 0;
-		$showMe = false;
 		txHash = undefined;
+		setTimeout(() => {
+			$showMe = false;
+		}, 2500)
 	}
 	/**
 	 * @notice this is a backup just in case
@@ -207,7 +209,6 @@
 
 		await getGWTbalance();
 		await getUSDCbalance();
-		clearModal()
 	}
 
 	async function swapMeSome() {
@@ -244,7 +245,6 @@
 		console.log("esperanding...")
 		await getGWTbalance();
 		await getUSDCbalance();
-		clearModal();
 	}
 	
 	/**
@@ -265,6 +265,8 @@
 							console.log(e);
 							metamaskError = e
 							console.log("CODE: ",metamaskError.code);
+							handleMetamaskError()
+							clearModal()
 						}
 				} else {
 					$showMe = true;
@@ -285,6 +287,8 @@
 						console.log(e);
 						metamaskError = e
 						console.log("CODE: ",metamaskError.code);
+						handleMetamaskError()
+						clearModal();
 					}
 				}
 				
@@ -302,9 +306,12 @@
 				console.log(e);
 				metamaskError = e
 				console.log("CODE: ",metamaskError.code);
-
+				
+				handleMetamaskError()
 				getMetamaskError = metamaskError;
 				weSelling = 0;
+				clearModal()
+
 			}
 		}
 	} 
@@ -338,6 +345,25 @@
     }
 
 	handleAccountsChanged();
+
+	function handleMetamaskError() {
+		// EIP-1193 userRejectedRequest error
+        // If this happens, the user rejected the connection request.
+		console.log("Catching a message: ", metamaskError)
+		try {
+			getWindowEthereum().on('message', (message: ProviderMessage) => {
+				if (message.type === -32603) {
+					console.log('ERRROE');
+				}
+				if (message.type === 4001) {
+					console.log('ERRROE');
+				}
+				console.log("Catching a message later: ", message)
+			});
+		} catch (err) {
+    		console.log("error! la cuenta le pasa algo")
+        }
+      }
 
 </script>
 <TxHashModal {txHash} {allowanceCheck} {getMetamaskError}>
